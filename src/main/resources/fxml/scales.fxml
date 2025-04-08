@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<SplitPane fx:id="scalesPane" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.cat.musictheoryfx.controller.ScalesController">
+  <items>
+      <fx:include source="toolbar.fxml" />
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="50.0" style="-fx-background-color: #FFFFFF;">
+         <children>
+            <Label layoutX="8.0" layoutY="14.0" prefHeight="34.0" prefWidth="531.0" text="Click 'Next' to get a random scale." AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <ButtonBar layoutX="322.0" layoutY="344.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+              <buttons>
+                <Button fx:id="showNotesButton" mnemonicParsing="false" onAction="#showNotes" text="Show notes" wrapText="true" />
+                  <Button fx:id="nextButton" mnemonicParsing="false" onAction="#getNextScale" text="Next" />
+                  <Button fx:id="repeatButton" mnemonicParsing="false" onAction="#shuffleAndRepeat" text="Start again" wrapText="true" />
+              </buttons>
+               <padding>
+                  <Insets right="10.0" />
+               </padding>
+            </ButtonBar>
+            <Label fx:id="dataLabel" alignment="CENTER" layoutX="243.0" layoutY="55.0" prefHeight="59.0" prefWidth="536.0" text="Label" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="55.0">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Label>
+            <Label fx:id="scalesLabel" layoutX="258.0" layoutY="174.0" text="Label" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="145.0">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Label>
+         </children></AnchorPane>
+  </items>
+</SplitPane>

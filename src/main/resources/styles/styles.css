@@ -1,0 +1,89 @@
+.root {
+    -fx-font-family: Verdana;
+}
+
+#homePane *.split-pane-divider {
+    -fx-padding: 0 1 0 1;
+    -fx-background-color: transparent;
+}
+
+.label {
+    -fx-text-fill: #000000;
+    -fx-wrap-text: true;
+}
+
+#welcomeLabel {
+    -fx-font-weight: bold;
+}
+
+#homePane *.button {
+    -fx-font-size: 16px;
+    -fx-background-radius: 0px;
+    -fx-font-family: Verdana;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color:  #7C00FE;
+    -fx-alignment: center-left;
+}
+
+#homePane *.button:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #6300cb;
+}
+
+#scalesPane *.split-pane-divider {
+    -fx-padding: 0 1 0 1;
+    -fx-background-color: transparent;
+}
+
+#scalesPane *.button {
+    -fx-font-size: 16px;
+    -fx-background-radius: 0px;
+    -fx-font-family: Verdana;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color:  #7C00FE;
+}
+
+#scalesPane *.button:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #6300cb;
+}
+
+#toolPane {
+       -fx-background-color:  #7C00FE;
+
+}
+
+#homeButton {
+    -fx-background-image: url("../graphics/home.png");
+    -fx-background-size: 35px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+#exitButton {
+    -fx-background-image: url("../graphics/exit.png");
+    -fx-background-size: 35px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+#settingsButton {
+    -fx-background-image: url("../graphics/settings.png");
+    -fx-background-size: 35px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+#fullScreenButton:max {
+    -fx-background-image: url("../graphics/maximize.png");
+    -fx-background-size: 35px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+#fullScreenButton:min {
+    -fx-background-image: url("../graphics/minimize.png");
+    -fx-background-size: 35px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
