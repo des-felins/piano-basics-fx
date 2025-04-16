@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
@@ -24,6 +25,9 @@ public class HomeController implements Initializable {
     @FXML
     private Button chordsButton;
 
+    @FXML
+    private ImageView gClef;
+
     private final StageManager stageManager;
 
     @Lazy
@@ -33,6 +37,9 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        gClef.setFitWidth(1000);
+        gClef.setPreserveRatio(true);
+        gClef.setSmooth(true);
 
     }
 

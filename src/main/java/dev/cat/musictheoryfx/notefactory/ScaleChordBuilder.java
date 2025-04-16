@@ -11,6 +11,7 @@ public class ScaleChordBuilder {
 
     private final HashMap<RootScaleNote, List<Scale>> majorScalesFromCircle = new HashMap<>();
     private final HashMap<RootScaleNote, List<Scale>> minorScalesFromCircle = new HashMap<>();
+    private final HashMap<RootScaleNote, List<Chord>> chordsForScalesFromCircle = new HashMap<>();
 
     public ScaleChordBuilder(CircleOfFifths circleOfFifths) {
         this.circleOfFifths = circleOfFifths;
@@ -58,6 +59,9 @@ public class ScaleChordBuilder {
                     minorScales);
         }
     }
+
+
+
 
     public HashMap<RootScaleNote, List<Scale>> getMajorScalesFromCircle() {
         return majorScalesFromCircle;

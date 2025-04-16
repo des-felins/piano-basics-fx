@@ -16,6 +16,11 @@
     -fx-font-weight: bold;
 }
 
+#dataLabel {
+    -fx-font-weight: bold;
+    -fx-font-size: 30px;
+}
+
 #homePane *.button {
     -fx-font-size: 16px;
     -fx-background-radius: 0px;
@@ -86,4 +91,8 @@
     -fx-background-size: 35px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
+}
+
+#gClef {
+    -fx-image: url("../graphics/g-clef.png");
 }

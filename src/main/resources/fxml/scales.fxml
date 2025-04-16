@@ -18,7 +18,7 @@
                   <Font size="22.0" />
                </font>
             </Label>
-            <ButtonBar layoutX="322.0" layoutY="344.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <ButtonBar layoutX="322.0" layoutY="344.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
               <buttons>
                 <Button fx:id="showNotesButton" mnemonicParsing="false" onAction="#showNotes" text="Show notes" wrapText="true" />
                   <Button fx:id="nextButton" mnemonicParsing="false" onAction="#getNextScale" text="Next" />
