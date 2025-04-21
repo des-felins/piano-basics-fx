@@ -5,15 +5,14 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 
 @Component
-public class ScaleChordBuilder {
+public class ScaleBuilder {
 
     private final CircleOfFifths circleOfFifths;
 
     private final HashMap<RootScaleNote, List<Scale>> majorScalesFromCircle = new HashMap<>();
     private final HashMap<RootScaleNote, List<Scale>> minorScalesFromCircle = new HashMap<>();
-    private final HashMap<RootScaleNote, List<Chord>> chordsForScalesFromCircle = new HashMap<>();
 
-    public ScaleChordBuilder(CircleOfFifths circleOfFifths) {
+    public ScaleBuilder(CircleOfFifths circleOfFifths) {
         this.circleOfFifths = circleOfFifths;
         populateMajorScales();
         populateMinorScales();
@@ -59,8 +58,6 @@ public class ScaleChordBuilder {
                     minorScales);
         }
     }
-
-
 
 
     public HashMap<RootScaleNote, List<Scale>> getMajorScalesFromCircle() {

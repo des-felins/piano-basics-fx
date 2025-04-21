@@ -3,7 +3,6 @@ package dev.cat.musictheoryfx.notefactory;
 public class KeySignature {
 
     Accidental signature;
-    int numberOfAccidentals;
 
     public KeySignature() {
     }
@@ -14,14 +13,6 @@ public class KeySignature {
 
     public void setSignature(Accidental signature) {
         this.signature = signature;
-    }
-
-    public int getNumberOfAccidentals() {
-        return numberOfAccidentals;
-    }
-
-    public void setNumberOfAccidentals(int numberOfAccidentals) {
-        this.numberOfAccidentals = numberOfAccidentals;
     }
 
 }

@@ -22,7 +22,7 @@ import java.util.*;
 @Component
 public class ScalesController implements Initializable {
 
-    public final ScaleChordBuilder builder;
+    public final ScaleBuilder builder;
 
     @FXML
     private Button nextButton;
@@ -55,7 +55,7 @@ public class ScalesController implements Initializable {
 
 
     @Lazy
-    public ScalesController(ScaleChordBuilder builder) {
+    public ScalesController(ScaleBuilder builder) {
         this.builder = builder;
     }
 

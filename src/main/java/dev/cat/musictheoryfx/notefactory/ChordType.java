@@ -16,17 +16,27 @@ public enum ChordType {
     SUBDOMINANT_TRIAD_MINOR("Minor Subdominant Triad", ChordType.TRIAD_MINOR),
     DOMINANT_TRIAD_MINOR("Minor Dominant Triad", ChordType.TRIAD_MINOR),
 
+    AUGMENTED_TRIAD("Augmented Triad", List.of(P1, M3, a5)),
+    DIMINISHED_TRIAD("Diminished Triad", List.of(P1, m3, d5)),
+
     DOMINANT_SEVENTH_CHORD("7th Chord", List.of(P1, M3, P5, m7)),
 
-    SIXTH_MAJOR("Major 6th Chord", List.of(), ScaleType.SCALE_MAJOR),
+    DOMINANT_SIX_FIVE_CHORD("Dominant 6/5 Chord", List.of(P1, m3, d5, m6)),
 
-    SIXTH_MINOR("Minor 6th Chord", List.of(), ScaleType.SCALE_MINOR),
+    DOMINANT_FOUR_THREE_CHORD("Dominant 4/3 Chord", List.of(P1, m3, P4, m6)),
 
-    SIX_FOUR_MAJOR("Major 6/4 Chord", List.of(), ScaleType.SCALE_MAJOR),
+    DOMINANT_FOUR_TWO_CHORD("Dominant 4/2 Chord", List.of(P1, M2, a4, M6)),
 
-    SIX_FOUR_MINOR("Minor 6/4 Chord", List.of(), ScaleType.SCALE_MINOR);
+    SIXTH_MAJOR("Major 6th Chord", List.of(P1, m3, P4), ScaleType.SCALE_MAJOR),
 
-    //G B D F
+    SIXTH_MINOR("Minor 6th Chord", List.of(P1, M3, P4), ScaleType.SCALE_MINOR),
+
+    SIX_FOUR_MAJOR("Major 6/4 Chord", List.of(P1, P4, M3), ScaleType.SCALE_MAJOR),
+
+    SIX_FOUR_MINOR("Minor 6/4 Chord", List.of(P1, P4, m3), ScaleType.SCALE_MINOR);
+
+
+    //C C# D D# E F F# G G# A A# B C
 
     private String description;
     private List<Interval> intervals;
