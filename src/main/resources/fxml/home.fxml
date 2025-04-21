@@ -16,7 +16,7 @@
       <fx:include source="toolbar.fxml" />
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="50.0" style="-fx-background-color: #FFFFFF;">
          <children>
-            <Label fx:id="welcomeLabel" layoutX="8.0" layoutY="14.0" prefHeight="34.0" prefWidth="531.0" text="Hello, Cat!" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
+            <Label fx:id="helloLabel" layoutX="8.0" layoutY="14.0" prefHeight="34.0" prefWidth="531.0" text="Label" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
                <font>
                   <Font size="26.0" />
                </font>

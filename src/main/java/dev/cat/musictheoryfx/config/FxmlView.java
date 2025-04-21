@@ -2,6 +2,15 @@ package dev.cat.musictheoryfx.config;
 
 public enum FxmlView {
 
+
+    LOGIN {
+
+        @Override
+        public String getFxmlPath() {
+            return "/fxml/login.fxml";
+        }
+    },
+
     HOME {
 
         @Override

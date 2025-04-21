@@ -30,10 +30,10 @@ public class MusicTheoryFxApplication extends Application {
     public void start(Stage primaryStage) {
         stage = primaryStage;
         stageManager = applicationContext.getBean(StageManager.class, primaryStage);
-        showHomeScene();
+        showLoginScene();
     }
 
-    private void showHomeScene() {
-        stageManager.switchScene(FxmlView.HOME);
+    private void showLoginScene() {
+        stageManager.switchScene(FxmlView.LOGIN);
     }
 }

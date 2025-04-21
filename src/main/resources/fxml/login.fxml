@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<SplitPane fx:id="homePane" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.cat.musictheoryfx.controller.LoginController">
+  <items>
+      <fx:include source="toolbar-for-login.fxml" />
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="50.0" style="-fx-background-color: #FFFFFF;">
+         <children>
+            <Label fx:id="welcomeLabel" layoutX="8.0" layoutY="14.0" prefHeight="34.0" prefWidth="531.0" text="Your personal solfeggio guide greets you!" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Label>
+            <Label layoutX="38.0" layoutY="54.0" text="Please enter your username:" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="gClef" fitHeight="350.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+            <TextField fx:id="userName" layoutX="10.0" layoutY="116.0" prefHeight="26.0" prefWidth="277.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="210.0" />
+            <Button fx:id="signInButton" layoutX="10.0" layoutY="164.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#loadUserAndOpenHomePage" prefHeight="30.0" prefWidth="90.0" text="Sign in" wrapText="true" AnchorPane.leftAnchor="10.0" />
+            <Button fx:id="signUpButton" layoutX="94.0" layoutY="164.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#saveUserAndOpenHomePage" prefHeight="30.0" prefWidth="90.0" text="Sign up" AnchorPane.leftAnchor="120.0" />
+            <Label fx:id="loginErrorLabel" layoutX="7.0" layoutY="223.0" prefHeight="59.0" prefWidth="296.0" text="Label" />
+         </children></AnchorPane>
+  </items>
+</SplitPane>

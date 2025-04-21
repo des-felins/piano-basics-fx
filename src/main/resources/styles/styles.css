@@ -96,3 +96,16 @@
 #gClef {
     -fx-image: url("../graphics/g-clef.png");
 }
+
+#loginErrorLabel {
+    -fx-text-fill: #FF0000;
+    -fx-font-size: 12px;
+}
+
+#signInButton {
+-fx-font-size: 12px;
+}
+
+#signUpButton {
+-fx-font-size: 12px;
+}

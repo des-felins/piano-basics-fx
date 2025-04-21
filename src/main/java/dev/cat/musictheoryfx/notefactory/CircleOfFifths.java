@@ -46,7 +46,6 @@ public class CircleOfFifths {
             keySignatureMajor.setSignature(Accidental.SHARP);
         }
 
-        keySignatureMajor.setNumberOfAccidentals(i);
         return keySignatureMajor;
     }
 
