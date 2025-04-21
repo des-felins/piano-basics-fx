@@ -12,10 +12,10 @@ Note that the application is a work-in-progress, features listed below will be i
 
 - Centralized bean lifecycle management and dependency injection with Spring Boot.
 - Smooth and modern UI with JavaFX.
+- Embedded SQLite for saving user details, progress, and preferences.
 
 ### TODO
 
-- Embedded SQLite for saving user progress and preferences.
 - Personalized themes & settings.
 - Custom exercises for major/minor scales and chords.
 - Interactive exercises for identifying chords, intervals, and scales by ear.
