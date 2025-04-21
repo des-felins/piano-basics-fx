@@ -4,12 +4,11 @@ import dev.cat.musictheoryfx.config.FxmlView;
 import dev.cat.musictheoryfx.config.StageManager;
 import dev.cat.musictheoryfx.event.LoginEvent;
 import dev.cat.musictheoryfx.user.User;
-import dev.cat.musictheoryfx.user.UserRepository;
+import dev.cat.musictheoryfx.user.UserService;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -46,20 +45,20 @@ public class LoginController implements Initializable {
 
     private final StageManager stageManager;
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     private final ApplicationEventPublisher eventPublisher;
 
     @Lazy
-    public LoginController(StageManager stageManager, UserRepository userRepository, ApplicationEventPublisher eventPublisher) {
+    public LoginController(StageManager stageManager, UserService userService, ApplicationEventPublisher eventPublisher) {
         this.stageManager = stageManager;
-        this.userRepository = userRepository;
+        this.userService = userService;
         this.eventPublisher = eventPublisher;
     }
 
 
-    public void loadUserAndOpenHomePage(ActionEvent actionEvent) {
-        Optional<User> user = userRepository.findByUserName(userName.getText());
+    public void loadUserAndOpenHomePage() {
+        Optional<User> user = userService.findByUsername(userName.getText());
         if (user.isEmpty()) {
             errorProperty.setValue(
                     "No user with this name found.");
@@ -68,11 +67,11 @@ public class LoginController implements Initializable {
     }
 
 
-    public void saveUserAndOpenHomePage(ActionEvent actionEvent) {
+    public void saveUserAndOpenHomePage() {
 
         String name = userName.getText();
 
-        Optional<User> user = userRepository.findByUserName(name);
+        Optional<User> user = userService.findByUsername(name);
         if (user.isPresent()) {
             errorProperty.setValue(
                     "User with this name already exists! Sign in or use another name.");
@@ -82,9 +81,7 @@ public class LoginController implements Initializable {
                         "Username must not be longer that 20 characters");
             }
         } else {
-            User newUser = new User();
-            newUser.setUserName(userName.getText());
-            userRepository.save(newUser);
+            userService.saveUser(name);
             stageManager.switchToNextScene(FxmlView.HOME);
         }
     }
@@ -97,7 +94,7 @@ public class LoginController implements Initializable {
 
         loginErrorLabel.textProperty().bind(errorProperty);
 
-        userName.textProperty().addListener(new ChangeListener<String>() {
+        userName.textProperty().addListener(new ChangeListener<>() {
             @Override
             public void changed(ObservableValue<? extends String> observable,
                                 String oldText,

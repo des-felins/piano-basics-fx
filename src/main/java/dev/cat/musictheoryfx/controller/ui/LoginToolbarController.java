@@ -55,7 +55,7 @@ public class LoginToolbarController implements Initializable {
 
     }
 
-    private void setWindowedGraphicsAndAction() {
+    public void setWindowedGraphicsAndAction() {
 
         fullScreenButton.pseudoClassStateChanged(maximizeIcon, false);
         fullScreenButton.pseudoClassStateChanged(minimizeIcon, true);

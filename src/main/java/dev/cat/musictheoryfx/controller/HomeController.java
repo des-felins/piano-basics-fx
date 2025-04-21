@@ -71,7 +71,7 @@ public class HomeController implements Initializable {
     }
 
     @FXML
-    public void switchToChordGeneratorScene(ActionEvent event) {
+    public void switchToChordGeneratorScene() {
     }
 
     @EventListener

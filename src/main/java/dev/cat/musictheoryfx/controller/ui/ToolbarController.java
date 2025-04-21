@@ -34,13 +34,13 @@ public class ToolbarController implements Initializable {
 
     @Lazy
     public ToolbarController(StageManager stageManager) {
+
         this.stageManager = stageManager;
     }
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         if (stageManager.isStageFullScreen()) {
             setWindowedGraphicsAndAction();
         } else {
@@ -75,7 +75,6 @@ public class ToolbarController implements Initializable {
 
     void setFullScreenGraphicsAndAction() {
 
-
         fullScreenButton.pseudoClassStateChanged(minimizeIcon, false);
         fullScreenButton.pseudoClassStateChanged(maximizeIcon, true);
 
@@ -83,7 +82,7 @@ public class ToolbarController implements Initializable {
 
     }
 
-    private void setWindowedGraphicsAndAction() {
+    public void setWindowedGraphicsAndAction() {
 
         fullScreenButton.pseudoClassStateChanged(maximizeIcon, false);
         fullScreenButton.pseudoClassStateChanged(minimizeIcon, true);
