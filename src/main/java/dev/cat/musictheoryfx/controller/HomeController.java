@@ -57,7 +57,7 @@ public class HomeController implements Initializable {
 
     @FXML
     void switchToTheoryScene() {
-
+        stageManager.switchToNextScene(FxmlView.SCALES_THEORY);
     }
 
     @FXML

@@ -3,6 +3,9 @@ package dev.cat.musictheoryfx.controller;
 import dev.cat.musictheoryfx.config.FxmlView;
 import dev.cat.musictheoryfx.config.StageManager;
 import dev.cat.musictheoryfx.event.LoginEvent;
+import dev.cat.musictheoryfx.exception.ConstraintsException;
+import dev.cat.musictheoryfx.exception.NotFoundException;
+import dev.cat.musictheoryfx.exception.UserExistsException;
 import dev.cat.musictheoryfx.user.User;
 import dev.cat.musictheoryfx.user.UserService;
 import javafx.beans.property.SimpleStringProperty;
@@ -62,7 +65,9 @@ public class LoginController implements Initializable {
         if (user.isEmpty()) {
             errorProperty.setValue(
                     "No user with this name found.");
-        } else stageManager.switchToNextScene(FxmlView.HOME);
+            throw new NotFoundException(errorProperty.getValue());
+        }
+        stageManager.switchToNextScene(FxmlView.HOME);
 
     }
 
@@ -75,15 +80,17 @@ public class LoginController implements Initializable {
         if (user.isPresent()) {
             errorProperty.setValue(
                     "User with this name already exists! Sign in or use another name.");
-
-            if (name.length() > 20) {
-                errorProperty.setValue(
-                        "Username must not be longer that 20 characters");
-            }
-        } else {
-            userService.saveUser(name);
-            stageManager.switchToNextScene(FxmlView.HOME);
+            throw new UserExistsException(errorProperty.getValue());
         }
+
+        if (name.length() > 20 || name.isBlank()) {
+            errorProperty.setValue(
+                    "Username must not be blank or longer that 20 characters");
+            throw new ConstraintsException(errorProperty.getValue());
+        }
+        userService.saveUser(name);
+        stageManager.switchToNextScene(FxmlView.HOME);
+
     }
 
     @Override

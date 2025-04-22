@@ -25,6 +25,14 @@ public enum FxmlView {
         public String getFxmlPath() {
             return "/fxml/scales.fxml";
         }
+    },
+
+    SCALES_THEORY {
+
+        @Override
+        public String getFxmlPath() {
+            return "/fxml/scales-theory.fxml";
+        }
     };
 
     public abstract String getFxmlPath();

@@ -3,12 +3,16 @@ package dev.cat.musictheoryfx;
 import dev.cat.musictheoryfx.config.FxmlView;
 import dev.cat.musictheoryfx.config.StageManager;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
 
 public class MusicTheoryFxApplication extends Application {
+
 
     private static Stage stage;
 
@@ -36,4 +40,5 @@ public class MusicTheoryFxApplication extends Application {
     private void showLoginScene() {
         stageManager.switchScene(FxmlView.LOGIN);
     }
+
 }
