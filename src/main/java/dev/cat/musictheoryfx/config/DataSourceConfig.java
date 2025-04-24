@@ -12,8 +12,12 @@ import java.util.Objects;
 @Configuration
 public class DataSourceConfig {
 
-    @Autowired
-    Environment env;
+    private final Environment env;
+
+    public DataSourceConfig(Environment env) {
+        this.env = env;
+    }
+
 
     @Bean
     public DataSource getDataSource() {
