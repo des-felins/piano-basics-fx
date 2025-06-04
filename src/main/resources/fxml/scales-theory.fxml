@@ -9,7 +9,7 @@
       <fx:include source="toolbar.fxml" />
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="50.0" style="-fx-background-color: #FFFFFF;">
          <children>
-            <Canvas fx:id="keyboard" height="200.0" layoutX="1.0" layoutY="192.0" width="850.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" />
+            <Canvas fx:id="keyboard" height="210.0" layoutX="1.0" layoutY="192.0" width="1000.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" />
          </children></AnchorPane>
   </items>
 </SplitPane>
