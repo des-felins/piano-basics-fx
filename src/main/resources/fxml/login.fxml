@@ -25,8 +25,8 @@
             </Label>
             <ImageView fx:id="gClef" fitHeight="350.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
             <TextField fx:id="userName" layoutX="10.0" layoutY="116.0" prefHeight="26.0" prefWidth="277.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="210.0" />
-            <Button fx:id="signInButton" layoutX="10.0" layoutY="164.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#loadUserAndOpenHomePage" prefHeight="30.0" prefWidth="90.0" text="Sign in" wrapText="true" AnchorPane.leftAnchor="10.0" />
-            <Button fx:id="signUpButton" layoutX="94.0" layoutY="164.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#saveUserAndOpenHomePage" prefHeight="30.0" prefWidth="90.0" text="Sign up" AnchorPane.leftAnchor="120.0" />
+            <Button fx:id="signInButton" layoutX="10.0" layoutY="164.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#loadUserAndOpenHomePage" prefHeight="31.0" prefWidth="90.0" text="Sign in" wrapText="true" AnchorPane.leftAnchor="10.0" />
+            <Button fx:id="signUpButton" layoutX="94.0" layoutY="164.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#saveUserAndOpenHomePage" prefHeight="31.0" prefWidth="90.0" text="Sign up" AnchorPane.leftAnchor="120.0" />
             <Label fx:id="loginErrorLabel" layoutX="7.0" layoutY="223.0" prefHeight="59.0" prefWidth="296.0" text="Label" />
          </children></AnchorPane>
   </items>

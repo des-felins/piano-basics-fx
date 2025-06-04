@@ -32,7 +32,7 @@ public class StageManager {
     }
 
     public void switchScene(final FxmlView view) {
-        primaryStage.setMinWidth(1000);
+        primaryStage.setMinWidth(1010);
         primaryStage.setMinHeight(700);
         primaryStage.setTitle(applicationTitle);
 
@@ -49,7 +49,7 @@ public class StageManager {
         scene.getStylesheets().add(stylesheet);
 
 
-        scene.widthProperty().addListener(new ChangeListener<Number>() {
+        scene.widthProperty().addListener(new ChangeListener<>() {
             @Override
             public void changed(
                     ObservableValue<? extends Number> observableValue,
