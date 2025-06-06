@@ -1,10 +1,10 @@
 package dev.cat.musictheoryfx.controller;
 
-import dev.cat.musictheoryfx.controller.ui.KeyboardBuilder;
+import dev.cat.musictheoryfx.controller.ui.ResizableCanvas;
+import dev.cat.musictheoryfx.event.SceneResizeEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
@@ -15,21 +15,25 @@ import java.util.ResourceBundle;
 public class ScalesTheoryController implements Initializable {
 
     @FXML
-    private Canvas keyboard;
-
-    public final KeyboardBuilder keyboardBuilder;
-
-    public ScalesTheoryController(KeyboardBuilder keyboardBuilder) {
-        this.keyboardBuilder = keyboardBuilder;
-    }
-
+    private ResizableCanvas keyboard;
+    private double width = 1000;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-        GraphicsContext gc = keyboard.getGraphicsContext2D();
-        keyboardBuilder.drawPiano(gc);
+        keyboard.draw(width);
 
     }
+
+    @EventListener
+    public void handleSceneResizeEvent(SceneResizeEvent event) {
+
+        width = event.getSceneWidth().doubleValue() - 10;
+
+        if(keyboard != null) {
+            keyboard.draw(width);
+        }
+
+    }
+
 
 }

@@ -48,7 +48,6 @@ public class StageManager {
 
         scene.getStylesheets().add(stylesheet);
 
-
         scene.widthProperty().addListener(new ChangeListener<>() {
             @Override
             public void changed(
@@ -60,7 +59,6 @@ public class StageManager {
 
             }
         });
-
 
         primaryStage.setScene(scene);
         primaryStage.show();
