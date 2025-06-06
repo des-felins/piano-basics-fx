@@ -1,11 +1,8 @@
 package dev.cat.musictheoryfx.controller.ui;
 
 import dev.cat.musictheoryfx.event.SceneResizeEvent;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
@@ -21,10 +18,9 @@ public class KeyboardBuilder {
     private final int BLACK_KEY_WIDTH = 29;
     private final int BLACK_KEY_HEIGHT = 125;
 
-  //  private ObjectProperty<Integer> WHITE_KEY_WIDTH = new SimpleObjectProperty<>(44);
+    //  private ObjectProperty<Integer> WHITE_KEY_WIDTH = new SimpleObjectProperty<>(44);
 
     private final List<Integer> blackKeyOffsets = List.of(1, 3, 6, 8, 10); // semitone positions of black keys in octave
-
 
 
     public void drawPiano(GraphicsContext gc) {
@@ -66,7 +62,7 @@ public class KeyboardBuilder {
     @EventListener
     public void handleSceneResizeEvent(SceneResizeEvent event) {
 
-      //  WHITE_KEY_WIDTH.set((event.getSceneWidth().intValue() / 1010) * WHITE_KEY_WIDTH.getValue());
+        //  WHITE_KEY_WIDTH.set((event.getSceneWidth().intValue() / 1010) * WHITE_KEY_WIDTH.getValue());
         
         /*
         WHITE_KEY_WIDTH = (event.getSceneWidth().intValue() / 1010) * WHITE_KEY_WIDTH;
