@@ -21,6 +21,14 @@ public class ResizableCanvas extends Canvas {
         keyboardBuilder.drawPiano(gc, getWidth(), getHeight());
     }
 
+    public void redraw(int keyNumber, boolean isWhite) {
+
+        GraphicsContext gc = getGraphicsContext2D();
+        gc.clearRect(0, 0, getWidth(), getHeight());
+
+        keyboardBuilder.redrawWithPressedKey(gc, getWidth(), getHeight(), keyNumber, isWhite);
+    }
+
     public void setSize(double width) {
         setWidth(width);
         setHeight(width - 790);
@@ -44,6 +52,5 @@ public class ResizableCanvas extends Canvas {
     public double prefHeight(double width) {
         return getHeight();
     }
-
 
 }

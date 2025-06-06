@@ -7,10 +7,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.media.AudioClip;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 
@@ -22,6 +24,8 @@ public class ScalesTheoryController implements Initializable {
     private double width = 1000;
 
     EventHandler<KeyEvent> keyPressListener = this::keyPressed;
+    EventHandler<KeyEvent> keyReleaseListener = this::keyReleased;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -34,56 +38,89 @@ public class ScalesTheoryController implements Initializable {
             }
         });
 
+        keyboard.sceneProperty().addListener((observableValue,
+                                              oldScene,
+                                              newScene) -> {
+            if (newScene != null) {
+                newScene.addEventHandler(KeyEvent.KEY_RELEASED, keyReleaseListener);
+            }
+        });
+
         keyboard.draw(width);
     }
 
     private void keyPressed(KeyEvent e) {
+        String soundFile = "";
         KeyCode key = e.getCode();
-        switch(key) {
-            case Q -> System.out.println("Pressed key Q");
-            case DIGIT2 -> System.out.println("Pressed key 1");
-            case W -> System.out.println("Pressed key W");
-            case DIGIT3 -> System.out.println("Pressed key 3");
-            case E -> System.out.println("Pressed key E");
-            case R -> System.out.println("Pressed key R");
-            case DIGIT5 -> System.out.println("Pressed key 5");
-            case T -> System.out.println("Pressed key T");
-            case DIGIT6 -> System.out.println("Pressed key 6");
-            case Y -> System.out.println("Pressed key Y");
-            case DIGIT7 -> System.out.println("Pressed key 7");
-            case U -> System.out.println("Pressed key U");
-            case I -> System.out.println("Pressed key I");
-            case DIGIT9 -> System.out.println("Pressed key 9");
-            case O -> System.out.println("Pressed key O");
-            case DIGIT0 -> System.out.println("Pressed key 0");
-            case P -> System.out.println("Pressed key P");
-            case Z -> System.out.println("Pressed key Z");
-            case S -> System.out.println("Pressed key S");
-            case X -> System.out.println("Pressed key X");
-            case D -> System.out.println("Pressed key D");
-            case C -> System.out.println("Pressed key C");
-            case F -> System.out.println("Pressed key F");
-            case V -> System.out.println("Pressed key V");
-            case B -> System.out.println("Pressed key B");
-            case H -> System.out.println("Pressed key H");
-            case N -> System.out.println("Pressed key N");
-            case J -> System.out.println("Pressed key J");
-            case M -> System.out.println("Pressed key M");
-            case COMMA -> System.out.println("Pressed key ,");
-            case L -> System.out.println("Pressed key L");
-            case PERIOD -> System.out.println("Pressed key .");
-            case SEMICOLON -> System.out.println("Pressed key ;");
-            case SLASH -> System.out.println("Pressed key /");
-            case QUOTE -> System.out.println("Pressed key quote");
-            case SHIFT -> System.out.println("Pressed key shift");
+        int keyNumber = 0;
+        boolean isWhite = true;
+        switch (key) {
+            case Q -> {
+                soundFile = "/sound/C3.aiff";
+                keyNumber = 1;
+            }
+            case DIGIT2 -> soundFile = "/sound/Db3.aiff";
+            case W -> soundFile = "/sound/D3.aiff";
+            case DIGIT3 -> soundFile = "/sound/Eb3.aiff";
+            case E -> soundFile = "/sound/E3.aiff";
+            case R -> soundFile = "/sound/F3.aiff";
+            case DIGIT5 -> soundFile = "/sound/Gb3.aiff";
+            case T -> soundFile = "/sound/G3.aiff";
+            case DIGIT6 -> soundFile = "/sound/Ab3.aiff";
+            case Y -> soundFile = "/sound/A3.aiff";
+            case DIGIT7 -> soundFile = "/sound/Bb3.aiff";
+            case U -> soundFile = "/sound/B3.aiff";
+            case I -> soundFile = "/sound/C4.aiff";
+            case DIGIT9 -> soundFile = "/sound/Db4.aiff";
+            case O -> soundFile = "/sound/D4.aiff";
+            case DIGIT0 -> soundFile = "/sound/Eb4.aiff";
+            case P -> soundFile = "/sound/E4.aiff";
+            case BACK_QUOTE -> soundFile = "/sound/F4.aiff";
+            case A -> soundFile = "/sound/Gb4.aiff";
+            case Z -> soundFile = "/sound/G4.aiff";
+            case S -> soundFile = "/sound/Ab4.aiff";
+            case X -> soundFile = "/sound/A4.aiff";
+            case D -> soundFile = "/sound/Bb4.aiff";
+            case C -> soundFile = "/sound/B4.aiff";
+            case V -> soundFile = "/sound/C5.aiff";
+            case G -> soundFile = "/sound/Db5.aiff";
+            case B -> soundFile = "/sound/D5.aiff";
+            case H -> soundFile = "/sound/Eb5.aiff";
+            case N -> soundFile = "/sound/E5.aiff";
+            case M -> soundFile = "/sound/F5.aiff";
+            case K -> soundFile = "/sound/Gb5.aiff";
+            case COMMA -> soundFile = "/sound/G5.aiff";
+            case L -> soundFile = "/sound/Ab5.aiff";
+            case PERIOD -> soundFile = "/sound/A5.aiff";
+            case SEMICOLON -> soundFile = "/sound/Bb5.aiff";
+            case SLASH -> soundFile = "/sound/B5.aiff";
         }
+
+        playKeySound(soundFile);
+        keyboard.redraw(keyNumber, isWhite);
+        System.out.println(keyNumber);
+
+
+    }
+
+    private void playKeySound(String soundFile) {
+        String path = Objects.requireNonNull(
+                        getClass().getResource(soundFile))
+                .toExternalForm();
+        AudioClip sound = new AudioClip(path);
+        sound.play();
+
+    }
+
+    private void keyReleased(KeyEvent keyEvent) {
+        keyboard.draw(width);
     }
 
     @EventListener
     public void handleSceneResizeEvent(SceneResizeEvent event) {
         width = event.getSceneWidth().doubleValue() - 10;
 
-        if(keyboard != null) {
+        if (keyboard != null) {
             keyboard.draw(width);
         }
 

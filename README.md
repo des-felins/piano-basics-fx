@@ -14,6 +14,9 @@ Note that the application is a work-in-progress, features listed below will be i
 - Smooth and modern UI with JavaFX.
 - Embedded SQLite for saving user details, progress, and preferences.
 
+The piano sounds used in this app were recorded at University of Iowa's Music School:
+http://theremin.music.uiowa.edu/MISpiano.html
+
 ### TODO
 
 - Personalized themes & settings.

@@ -45,6 +45,45 @@ public class KeyboardBuilder {
         }
     }
 
+    public void redrawWithPressedKey(GraphicsContext gc, double width, double height, int keyNumber, boolean isWhite) {
+        resizeKeys(width, height);
+        if(isWhite) {
+            drawPressedWhiteKey(gc, keyNumber);
+        }
+        drawPressedBlackKey(gc, keyNumber);
+    }
+
+    private void drawPressedBlackKey(GraphicsContext gc, int keyNumber) {
+    }
+
+    private void drawPressedWhiteKey(GraphicsContext gc, int keyNumber) {
+
+        int totalWhiteKeys = OCTAVES * 7;
+
+        // Draw white keys
+        for (int i = 0; i < totalWhiteKeys; i++) {
+            int x = i * WHITE_KEY_WIDTH;
+//            if(keyNumber - 1 == i) {
+//                gc.setFill(Color.LIGHTGREY);
+//            }
+            gc.setFill(Color.WHITE);
+            gc.fillRect(x, 0, WHITE_KEY_WIDTH, WHITE_KEY_HEIGHT);
+            gc.setStroke(Color.BLACK);
+            gc.strokeRect(x, 0, WHITE_KEY_WIDTH, WHITE_KEY_HEIGHT);
+        }
+
+        // Draw black keys (overlapping white ones)
+        for (int octave = 0; octave < OCTAVES; octave++) {
+            for (int semitone : blackKeyOffsets) {
+                int indexInWhiteKeys = getWhiteKeyIndex(semitone);
+                int x = (octave * 7 + indexInWhiteKeys + 1) * WHITE_KEY_WIDTH - (BLACK_KEY_WIDTH / 2);
+                gc.setFill(Color.BLACK);
+                gc.fillRect(x, 0, BLACK_KEY_WIDTH, BLACK_KEY_HEIGHT);
+            }
+        }
+
+    }
+
     // Helper: map black key semitone to position in white keys
     private int getWhiteKeyIndex(int semitone) {
         // Mapping: 1(C#)->0, 3(D#)->1, 6(F#)->3, 8(G#)->4, 10(A#)->5
