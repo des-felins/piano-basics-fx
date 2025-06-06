@@ -63,10 +63,12 @@ public class KeyboardBuilder {
         // Draw white keys
         for (int i = 0; i < totalWhiteKeys; i++) {
             int x = i * WHITE_KEY_WIDTH;
-//            if(keyNumber - 1 == i) {
-//                gc.setFill(Color.LIGHTGREY);
-//            }
-            gc.setFill(Color.WHITE);
+            if(keyNumber - 1 == i) {
+                gc.setFill(Color.LAVENDER);
+            }
+            else {
+                gc.setFill(Color.WHITE);
+            }
             gc.fillRect(x, 0, WHITE_KEY_WIDTH, WHITE_KEY_HEIGHT);
             gc.setStroke(Color.BLACK);
             gc.strokeRect(x, 0, WHITE_KEY_WIDTH, WHITE_KEY_HEIGHT);
