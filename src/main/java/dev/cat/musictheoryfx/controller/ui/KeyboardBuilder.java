@@ -1,9 +1,7 @@
 package dev.cat.musictheoryfx.controller.ui;
 
-import dev.cat.musictheoryfx.event.SceneResizeEvent;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -23,9 +21,7 @@ public class KeyboardBuilder {
 
 
     public void drawPiano(GraphicsContext gc, double width, double height) {
-        if(width != 1000) {
         resizeKeys(width, height);
-        }
 
         int totalWhiteKeys = OCTAVES * 7;
 
@@ -69,8 +65,6 @@ public class KeyboardBuilder {
         WHITE_KEY_HEIGHT = (int) (((height - 5) / 205) * WHITE_KEY_HEIGHT);
         BLACK_KEY_WIDTH = (int) ((width / 1000) * BLACK_KEY_WIDTH);
         BLACK_KEY_HEIGHT = (int) (((height - 85) / 125) * BLACK_KEY_HEIGHT);
-
-        System.out.println(WHITE_KEY_WIDTH + " " + WHITE_KEY_HEIGHT + " " + BLACK_KEY_WIDTH + " " + BLACK_KEY_HEIGHT);
 
     }
 
