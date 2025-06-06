@@ -13,17 +13,20 @@ public class KeyboardBuilder {
 
 
     private final int OCTAVES = 3;
-    private final int WHITE_KEY_WIDTH = 44;
-    private final int WHITE_KEY_HEIGHT = 205;
-    private final int BLACK_KEY_WIDTH = 29;
-    private final int BLACK_KEY_HEIGHT = 125;
+    private int WHITE_KEY_WIDTH = 44;
+    private int WHITE_KEY_HEIGHT = 205;
+    private int BLACK_KEY_WIDTH = 29;
+    private int BLACK_KEY_HEIGHT = 125;
 
-    //  private ObjectProperty<Integer> WHITE_KEY_WIDTH = new SimpleObjectProperty<>(44);
 
     private final List<Integer> blackKeyOffsets = List.of(1, 3, 6, 8, 10); // semitone positions of black keys in octave
 
 
-    public void drawPiano(GraphicsContext gc) {
+    public void drawPiano(GraphicsContext gc, double width, double height) {
+        if(width != 1000) {
+        resizeKeys(width, height);
+        }
+
         int totalWhiteKeys = OCTAVES * 7;
 
         // Draw white keys
@@ -59,18 +62,24 @@ public class KeyboardBuilder {
         };
     }
 
-    @EventListener
-    public void handleSceneResizeEvent(SceneResizeEvent event) {
+    private void resizeKeys(double width, double height) {
+        setStartingKeySize();
 
-        //  WHITE_KEY_WIDTH.set((event.getSceneWidth().intValue() / 1010) * WHITE_KEY_WIDTH.getValue());
-        
-        /*
-        WHITE_KEY_WIDTH = (event.getSceneWidth().intValue() / 1010) * WHITE_KEY_WIDTH;
-        WHITE_KEY_HEIGHT = (event.getSceneWidth().intValue() / 1010) * WHITE_KEY_HEIGHT;
-        BLACK_KEY_WIDTH = (event.getSceneWidth().intValue() / 1010) * BLACK_KEY_WIDTH;
-        BLACK_KEY_HEIGHT = (event.getSceneWidth().intValue() / 1010) * BLACK_KEY_HEIGHT;
+        WHITE_KEY_WIDTH = (int) ((width / 1000) * WHITE_KEY_WIDTH);
+        WHITE_KEY_HEIGHT = (int) (((height - 5) / 205) * WHITE_KEY_HEIGHT);
+        BLACK_KEY_WIDTH = (int) ((width / 1000) * BLACK_KEY_WIDTH);
+        BLACK_KEY_HEIGHT = (int) (((height - 85) / 125) * BLACK_KEY_HEIGHT);
 
-         */
+        System.out.println(WHITE_KEY_WIDTH + " " + WHITE_KEY_HEIGHT + " " + BLACK_KEY_WIDTH + " " + BLACK_KEY_HEIGHT);
+
+    }
+
+    private void setStartingKeySize() {
+        WHITE_KEY_WIDTH = 44;
+        WHITE_KEY_HEIGHT = 205;
+        BLACK_KEY_WIDTH = 29;
+        BLACK_KEY_HEIGHT = 125;
+
     }
 
 }
