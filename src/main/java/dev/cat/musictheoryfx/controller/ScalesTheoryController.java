@@ -12,8 +12,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 
 
 @Component
@@ -25,10 +24,13 @@ public class ScalesTheoryController implements Initializable {
 
     EventHandler<KeyEvent> keyPressListener = this::keyPressed;
     EventHandler<KeyEvent> keyReleaseListener = this::keyReleased;
+    private Map<String, AudioClip> keySounds = new HashMap<>();
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        fillKeySounds();
 
         keyboard.sceneProperty().addListener((observableValue,
                                               oldScene,
@@ -231,25 +233,147 @@ public class ScalesTheoryController implements Initializable {
                 keyNumber = 21;
             }
         }
-
         playKeySound(soundFile);
         keyboard.redraw(keyNumber, isWhite, octaveBlockNumber);
-
-
     }
 
-    private void playKeySound(String soundFile) {
-        String path = Objects.requireNonNull(
-                        getClass().getResource(soundFile))
-                .toExternalForm();
-        AudioClip sound = new AudioClip(path);
-        sound.play();
 
+    private void playKeySound(String soundFile) {
+        AudioClip sound = keySounds.get(soundFile);
+        if(sound.isPlaying()) {
+            return;
+        }
+        else {
+            sound.play();
+        }
     }
 
     private void keyReleased(KeyEvent keyEvent) {
         keyboard.draw(width);
+
+        KeyCode key = keyEvent.getCode();
+        String soundFile = "";
+
+        switch (key) {
+            case Q -> {
+                soundFile = "/sound/C3.aiff";
+            }
+            case DIGIT2 -> {
+                soundFile = "/sound/Db3.aiff";
+            }
+            case W -> {
+                soundFile = "/sound/D3.aiff";
+            }
+            case DIGIT3 -> {
+                soundFile = "/sound/Eb3.aiff";
+            }
+            case E -> {
+                soundFile = "/sound/E3.aiff";
+            }
+            case R -> {
+                soundFile = "/sound/F3.aiff";
+            }
+            case DIGIT5 -> {
+                soundFile = "/sound/Gb3.aiff";
+            }
+            case T -> {
+                soundFile = "/sound/G3.aiff";
+            }
+            case DIGIT6 -> {
+                soundFile = "/sound/Ab3.aiff";
+            }
+            case Y -> {
+                soundFile = "/sound/A3.aiff";
+            }
+            case DIGIT7 -> {
+                soundFile = "/sound/Bb3.aiff";
+            }
+            case U -> {
+                soundFile = "/sound/B3.aiff";
+            }
+            case I -> {
+                soundFile = "/sound/C4.aiff";
+            }
+            case DIGIT9 -> {
+                soundFile = "/sound/Db4.aiff";
+            }
+            case O -> {
+                soundFile = "/sound/D4.aiff";
+            }
+            case DIGIT0 -> {
+                soundFile = "/sound/Eb4.aiff";
+            }
+            case P -> {
+                soundFile = "/sound/E4.aiff";
+            }
+            case BACK_QUOTE -> {
+                soundFile = "/sound/F4.aiff";
+            }
+            case A -> {
+                soundFile = "/sound/Gb4.aiff";
+            }
+            case Z -> {
+                soundFile = "/sound/G4.aiff";
+            }
+            case S -> {
+                soundFile = "/sound/Ab4.aiff";
+            }
+            case X -> {
+                soundFile = "/sound/A4.aiff";
+            }
+            case D -> {
+                soundFile = "/sound/Bb4.aiff";
+            }
+            case C -> {
+                soundFile = "/sound/B4.aiff";
+            }
+            case V -> {
+                soundFile = "/sound/C5.aiff";
+            }
+            case G -> {
+                soundFile = "/sound/Db5.aiff";
+            }
+            case B -> {
+                soundFile = "/sound/D5.aiff";
+            }
+            case H -> {
+                soundFile = "/sound/Eb5.aiff";
+            }
+            case N -> {
+                soundFile = "/sound/E5.aiff";
+            }
+            case M -> {
+                soundFile = "/sound/F5.aiff";
+            }
+            case K -> {
+                soundFile = "/sound/Gb5.aiff";
+            }
+            case COMMA -> {
+                soundFile = "/sound/G5.aiff";
+            }
+            case L -> {
+                soundFile = "/sound/Ab5.aiff";
+            }
+            case PERIOD -> {
+                soundFile = "/sound/A5.aiff";
+            }
+            case SEMICOLON -> {
+                soundFile = "/sound/Bb5.aiff";
+            }
+            case SLASH -> {
+                soundFile = "/sound/B5.aiff";
+            }
+        }
+
+        stopKeySound(soundFile);
     }
+
+
+    private void stopKeySound(String soundFile) {
+        AudioClip sound = keySounds.get(soundFile);
+        sound.stop();
+    }
+
 
     @EventListener
     public void handleSceneResizeEvent(SceneResizeEvent event) {
@@ -259,6 +383,55 @@ public class ScalesTheoryController implements Initializable {
             keyboard.draw(width);
         }
 
+    }
+
+    public void fillKeySounds() {
+        List<String> files = new ArrayList<>();
+        files.add("/sound/C3.aiff");
+        files.add("/sound/Db3.aiff");
+        files.add("/sound/D3.aiff");
+        files.add("/sound/Eb3.aiff");
+        files.add("/sound/E3.aiff");
+        files.add("/sound/F3.aiff");
+        files.add("/sound/Gb3.aiff");
+        files.add("/sound/G3.aiff");
+        files.add("/sound/Ab3.aiff");
+        files.add("/sound/A3.aiff");
+        files.add("/sound/Bb3.aiff");
+        files.add("/sound/B3.aiff");
+        files.add("/sound/C4.aiff");
+        files.add("/sound/Db4.aiff");
+        files.add("/sound/D4.aiff");
+        files.add("/sound/Eb4.aiff");
+        files.add("/sound/E4.aiff");
+        files.add("/sound/F4.aiff");
+        files.add("/sound/Gb4.aiff");
+        files.add("/sound/G4.aiff");
+        files.add("/sound/Ab4.aiff");
+        files.add("/sound/A4.aiff");
+        files.add("/sound/Bb4.aiff");
+        files.add("/sound/B4.aiff");
+        files.add("/sound/C5.aiff");
+        files.add("/sound/Db5.aiff");
+        files.add("/sound/D5.aiff");
+        files.add("/sound/Eb5.aiff");
+        files.add("/sound/E5.aiff");
+        files.add("/sound/F5.aiff");
+        files.add("/sound/Gb5.aiff");
+        files.add("/sound/G5.aiff");
+        files.add("/sound/Ab5.aiff");
+        files.add("/sound/A5.aiff");
+        files.add("/sound/Bb5.aiff");
+        files.add("/sound/B5.aiff");
+
+
+        for(String file : files) {
+            String path = Objects.requireNonNull(
+                            getClass().getResource(file))
+                    .toExternalForm();
+            AudioClip keySound = new AudioClip(path);
+            keySounds.put(file, keySound);
+        }
     }
 
 
