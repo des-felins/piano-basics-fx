@@ -21,12 +21,12 @@ public class ResizableCanvas extends Canvas {
         keyboardBuilder.drawPiano(gc, getWidth(), getHeight());
     }
 
-    public void redraw(int keyNumber, boolean isWhite) {
+    public void redraw(int keyNumber, boolean isWhite, int octaveBlockNumber) {
 
         GraphicsContext gc = getGraphicsContext2D();
         gc.clearRect(0, 0, getWidth(), getHeight());
 
-        keyboardBuilder.redrawWithPressedKey(gc, getWidth(), getHeight(), keyNumber, isWhite);
+        keyboardBuilder.redrawWithPressedKey(gc, getWidth(), getHeight(), keyNumber, isWhite, octaveBlockNumber);
     }
 
     public void setSize(double width) {

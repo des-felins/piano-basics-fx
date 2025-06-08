@@ -53,18 +53,29 @@ public class ScalesTheoryController implements Initializable {
         String soundFile = "";
         KeyCode key = e.getCode();
         int keyNumber = 0;
+        int octaveBlockNumber = 0;
         boolean isWhite = true;
         switch (key) {
             case Q -> {
                 soundFile = "/sound/C3.aiff";
                 keyNumber = 1;
             }
-            case DIGIT2 -> soundFile = "/sound/Db3.aiff";
+            case DIGIT2 -> {
+                soundFile = "/sound/Db3.aiff";
+                keyNumber = 0;
+                isWhite = false;
+                octaveBlockNumber = 1;
+            }
             case W -> {
                 soundFile = "/sound/D3.aiff";
                 keyNumber = 2;
             }
-            case DIGIT3 -> soundFile = "/sound/Eb3.aiff";
+            case DIGIT3 -> {
+                soundFile = "/sound/Eb3.aiff";
+                keyNumber = 1;
+                isWhite = false;
+                octaveBlockNumber = 1;
+            }
             case E -> {
                 soundFile = "/sound/E3.aiff";
                 keyNumber = 3;
@@ -73,17 +84,32 @@ public class ScalesTheoryController implements Initializable {
                 soundFile = "/sound/F3.aiff";
                 keyNumber = 4;
             }
-            case DIGIT5 -> soundFile = "/sound/Gb3.aiff";
+            case DIGIT5 -> {
+                soundFile = "/sound/Gb3.aiff";
+                keyNumber = 3;
+                isWhite = false;
+                octaveBlockNumber = 1;
+            }
             case T -> {
                 soundFile = "/sound/G3.aiff";
                 keyNumber = 5;
             }
-            case DIGIT6 -> soundFile = "/sound/Ab3.aiff";
+            case DIGIT6 -> {
+                soundFile = "/sound/Ab3.aiff";
+                keyNumber = 4;
+                isWhite = false;
+                octaveBlockNumber = 1;
+            }
             case Y -> {
                 soundFile = "/sound/A3.aiff";
                 keyNumber = 6;
             }
-            case DIGIT7 -> soundFile = "/sound/Bb3.aiff";
+            case DIGIT7 -> {
+                soundFile = "/sound/Bb3.aiff";
+                keyNumber = 5;
+                isWhite = false;
+                octaveBlockNumber = 1;
+            }
             case U -> {
                 soundFile = "/sound/B3.aiff";
                 keyNumber = 7;
@@ -92,12 +118,22 @@ public class ScalesTheoryController implements Initializable {
                 soundFile = "/sound/C4.aiff";
                 keyNumber = 8;
             }
-            case DIGIT9 -> soundFile = "/sound/Db4.aiff";
+            case DIGIT9 -> {
+                soundFile = "/sound/Db4.aiff";
+                keyNumber = 0;
+                isWhite = false;
+                octaveBlockNumber = 2;
+            }
             case O -> {
                 soundFile = "/sound/D4.aiff";
                 keyNumber = 9;
             }
-            case DIGIT0 -> soundFile = "/sound/Eb4.aiff";
+            case DIGIT0 -> {
+                soundFile = "/sound/Eb4.aiff";
+                keyNumber = 1;
+                isWhite = false;
+                octaveBlockNumber = 2;
+            }
             case P -> {
                 soundFile = "/sound/E4.aiff";
                 keyNumber = 10;
@@ -106,17 +142,32 @@ public class ScalesTheoryController implements Initializable {
                 soundFile = "/sound/F4.aiff";
                 keyNumber = 11;
             }
-            case A -> soundFile = "/sound/Gb4.aiff";
+            case A -> {
+                soundFile = "/sound/Gb4.aiff";
+                keyNumber = 3;
+                isWhite = false;
+                octaveBlockNumber = 2;
+            }
             case Z -> {
                 soundFile = "/sound/G4.aiff";
                 keyNumber = 12;
             }
-            case S -> soundFile = "/sound/Ab4.aiff";
+            case S -> {
+                soundFile = "/sound/Ab4.aiff";
+                keyNumber = 4;
+                isWhite = false;
+                octaveBlockNumber = 2;
+            }
             case X -> {
                 soundFile = "/sound/A4.aiff";
                 keyNumber = 13;
             }
-            case D -> soundFile = "/sound/Bb4.aiff";
+            case D -> {
+                soundFile = "/sound/Bb4.aiff";
+                keyNumber = 5;
+                isWhite = false;
+                octaveBlockNumber = 2;
+            }
             case C -> {
                 soundFile = "/sound/B4.aiff";
                 keyNumber = 14;
@@ -125,12 +176,22 @@ public class ScalesTheoryController implements Initializable {
                 soundFile = "/sound/C5.aiff";
                 keyNumber = 15;
             }
-            case G -> soundFile = "/sound/Db5.aiff";
+            case G -> {
+                soundFile = "/sound/Db5.aiff";
+                keyNumber = 0;
+                isWhite = false;
+                octaveBlockNumber = 3;
+            }
             case B -> {
                 soundFile = "/sound/D5.aiff";
                 keyNumber = 16;
             }
-            case H -> soundFile = "/sound/Eb5.aiff";
+            case H -> {
+                soundFile = "/sound/Eb5.aiff";
+                keyNumber = 1;
+                isWhite = false;
+                octaveBlockNumber = 3;
+            }
             case N -> {
                 soundFile = "/sound/E5.aiff";
                 keyNumber = 17;
@@ -139,17 +200,32 @@ public class ScalesTheoryController implements Initializable {
                 soundFile = "/sound/F5.aiff";
                 keyNumber = 18;
             }
-            case K -> soundFile = "/sound/Gb5.aiff";
+            case K -> {
+                soundFile = "/sound/Gb5.aiff";
+                keyNumber = 3;
+                isWhite = false;
+                octaveBlockNumber = 3;
+            }
             case COMMA -> {
                 soundFile = "/sound/G5.aiff";
                 keyNumber = 19;
             }
-            case L -> soundFile = "/sound/Ab5.aiff";
+            case L -> {
+                soundFile = "/sound/Ab5.aiff";
+                keyNumber = 4;
+                isWhite = false;
+                octaveBlockNumber = 3;
+            }
             case PERIOD -> {
                 soundFile = "/sound/A5.aiff";
                 keyNumber = 20;
             }
-            case SEMICOLON -> soundFile = "/sound/Bb5.aiff";
+            case SEMICOLON -> {
+                soundFile = "/sound/Bb5.aiff";
+                keyNumber = 5;
+                isWhite = false;
+                octaveBlockNumber = 3;
+            }
             case SLASH -> {
                 soundFile = "/sound/B5.aiff";
                 keyNumber = 21;
@@ -157,7 +233,7 @@ public class ScalesTheoryController implements Initializable {
         }
 
         playKeySound(soundFile);
-        keyboard.redraw(keyNumber, isWhite);
+        keyboard.redraw(keyNumber, isWhite, octaveBlockNumber);
 
 
     }
