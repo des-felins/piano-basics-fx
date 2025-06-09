@@ -59,17 +59,17 @@ public class ScalesTheoryController implements Initializable {
         boolean isWhite = true;
         switch (key) {
             case Q -> {
-                soundFile = "/sound/C3.aiff";
+                soundFile = "/sound/C3.mp3";
                 keyNumber = 1;
             }
             case DIGIT2 -> {
-                soundFile = "/sound/Db3.aiff";
+                soundFile = "/sound/Db3.mp3";
                 keyNumber = 0;
                 isWhite = false;
                 octaveBlockNumber = 1;
             }
             case W -> {
-                soundFile = "/sound/D3.aiff";
+                soundFile = "/sound/D3.mp3";
                 keyNumber = 2;
             }
             case DIGIT3 -> {
@@ -256,13 +256,13 @@ public class ScalesTheoryController implements Initializable {
 
         switch (key) {
             case Q -> {
-                soundFile = "/sound/C3.aiff";
+                soundFile = "/sound/C3.mp3";
             }
             case DIGIT2 -> {
-                soundFile = "/sound/Db3.aiff";
+                soundFile = "/sound/Db3.mp3";
             }
             case W -> {
-                soundFile = "/sound/D3.aiff";
+                soundFile = "/sound/D3.mp3";
             }
             case DIGIT3 -> {
                 soundFile = "/sound/Eb3.aiff";
@@ -387,9 +387,9 @@ public class ScalesTheoryController implements Initializable {
 
     public void fillKeySounds() {
         List<String> files = new ArrayList<>();
-        files.add("/sound/C3.aiff");
-        files.add("/sound/Db3.aiff");
-        files.add("/sound/D3.aiff");
+        files.add("/sound/C3.mp3");
+        files.add("/sound/Db3.mp3");
+        files.add("/sound/D3.mp3");
         files.add("/sound/Eb3.aiff");
         files.add("/sound/E3.aiff");
         files.add("/sound/F3.aiff");
