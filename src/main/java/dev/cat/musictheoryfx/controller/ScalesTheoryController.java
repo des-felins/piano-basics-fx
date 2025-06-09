@@ -24,7 +24,8 @@ public class ScalesTheoryController implements Initializable {
 
     EventHandler<KeyEvent> keyPressListener = this::keyPressed;
     EventHandler<KeyEvent> keyReleaseListener = this::keyReleased;
-    private Map<String, AudioClip> keySounds = new HashMap<>();
+    private final Map<KeyCode, AudioClip> keyToSound = new HashMap<>();
+
 
 
     @Override
@@ -52,194 +53,114 @@ public class ScalesTheoryController implements Initializable {
     }
 
     private void keyPressed(KeyEvent e) {
-        String soundFile = "";
         KeyCode key = e.getCode();
         int keyNumber = 0;
         int octaveBlockNumber = 0;
         boolean isWhite = true;
+
+        playKeySound(key);
+
         switch (key) {
-            case Q -> {
-                soundFile = "/sound/C3.mp3";
-                keyNumber = 1;
-            }
+            case Q -> keyNumber = 1;
             case DIGIT2 -> {
-                soundFile = "/sound/Db3.mp3";
-                keyNumber = 0;
                 isWhite = false;
                 octaveBlockNumber = 1;
             }
-            case W -> {
-                soundFile = "/sound/D3.mp3";
-                keyNumber = 2;
-            }
+            case W -> keyNumber = 2;
             case DIGIT3 -> {
-                soundFile = "/sound/Eb3.aiff";
                 keyNumber = 1;
                 isWhite = false;
                 octaveBlockNumber = 1;
             }
-            case E -> {
-                soundFile = "/sound/E3.aiff";
-                keyNumber = 3;
-            }
-            case R -> {
-                soundFile = "/sound/F3.aiff";
-                keyNumber = 4;
-            }
+            case E -> keyNumber = 3;
+            case R -> keyNumber = 4;
             case DIGIT5 -> {
-                soundFile = "/sound/Gb3.aiff";
                 keyNumber = 3;
                 isWhite = false;
                 octaveBlockNumber = 1;
             }
-            case T -> {
-                soundFile = "/sound/G3.aiff";
-                keyNumber = 5;
-            }
+            case T -> keyNumber = 5;
             case DIGIT6 -> {
-                soundFile = "/sound/Ab3.aiff";
                 keyNumber = 4;
                 isWhite = false;
                 octaveBlockNumber = 1;
             }
-            case Y -> {
-                soundFile = "/sound/A3.aiff";
-                keyNumber = 6;
-            }
+            case Y -> keyNumber = 6;
             case DIGIT7 -> {
-                soundFile = "/sound/Bb3.aiff";
                 keyNumber = 5;
                 isWhite = false;
                 octaveBlockNumber = 1;
             }
-            case U -> {
-                soundFile = "/sound/B3.aiff";
-                keyNumber = 7;
-            }
-            case I -> {
-                soundFile = "/sound/C4.aiff";
-                keyNumber = 8;
-            }
+            case U -> keyNumber = 7;
+            case I -> keyNumber = 8;
             case DIGIT9 -> {
-                soundFile = "/sound/Db4.aiff";
-                keyNumber = 0;
                 isWhite = false;
                 octaveBlockNumber = 2;
             }
-            case O -> {
-                soundFile = "/sound/D4.aiff";
-                keyNumber = 9;
-            }
+            case O -> keyNumber = 9;
             case DIGIT0 -> {
-                soundFile = "/sound/Eb4.aiff";
                 keyNumber = 1;
                 isWhite = false;
                 octaveBlockNumber = 2;
             }
-            case P -> {
-                soundFile = "/sound/E4.aiff";
-                keyNumber = 10;
-            }
-            case BACK_QUOTE -> {
-                soundFile = "/sound/F4.aiff";
-                keyNumber = 11;
-            }
+            case P -> keyNumber = 10;
+            case BACK_QUOTE -> keyNumber = 11;
             case A -> {
-                soundFile = "/sound/Gb4.aiff";
                 keyNumber = 3;
                 isWhite = false;
                 octaveBlockNumber = 2;
             }
-            case Z -> {
-                soundFile = "/sound/G4.aiff";
-                keyNumber = 12;
-            }
+            case Z -> keyNumber = 12;
             case S -> {
-                soundFile = "/sound/Ab4.aiff";
                 keyNumber = 4;
                 isWhite = false;
                 octaveBlockNumber = 2;
             }
-            case X -> {
-                soundFile = "/sound/A4.aiff";
-                keyNumber = 13;
-            }
+            case X -> keyNumber = 13;
             case D -> {
-                soundFile = "/sound/Bb4.aiff";
                 keyNumber = 5;
                 isWhite = false;
                 octaveBlockNumber = 2;
             }
-            case C -> {
-                soundFile = "/sound/B4.aiff";
-                keyNumber = 14;
-            }
-            case V -> {
-                soundFile = "/sound/C5.aiff";
-                keyNumber = 15;
-            }
+            case C -> keyNumber = 14;
+            case V -> keyNumber = 15;
             case G -> {
-                soundFile = "/sound/Db5.aiff";
-                keyNumber = 0;
                 isWhite = false;
                 octaveBlockNumber = 3;
             }
-            case B -> {
-                soundFile = "/sound/D5.aiff";
-                keyNumber = 16;
-            }
+            case B -> keyNumber = 16;
             case H -> {
-                soundFile = "/sound/Eb5.aiff";
                 keyNumber = 1;
                 isWhite = false;
                 octaveBlockNumber = 3;
             }
-            case N -> {
-                soundFile = "/sound/E5.aiff";
-                keyNumber = 17;
-            }
-            case M -> {
-                soundFile = "/sound/F5.aiff";
-                keyNumber = 18;
-            }
+            case N -> keyNumber = 17;
+            case M -> keyNumber = 18;
             case K -> {
-                soundFile = "/sound/Gb5.aiff";
                 keyNumber = 3;
                 isWhite = false;
                 octaveBlockNumber = 3;
             }
-            case COMMA -> {
-                soundFile = "/sound/G5.aiff";
-                keyNumber = 19;
-            }
+            case COMMA -> keyNumber = 19;
             case L -> {
-                soundFile = "/sound/Ab5.aiff";
                 keyNumber = 4;
                 isWhite = false;
                 octaveBlockNumber = 3;
             }
-            case PERIOD -> {
-                soundFile = "/sound/A5.aiff";
-                keyNumber = 20;
-            }
+            case PERIOD -> keyNumber = 20;
             case SEMICOLON -> {
-                soundFile = "/sound/Bb5.aiff";
                 keyNumber = 5;
                 isWhite = false;
                 octaveBlockNumber = 3;
             }
-            case SLASH -> {
-                soundFile = "/sound/B5.aiff";
-                keyNumber = 21;
-            }
+            case SLASH -> keyNumber = 21;
         }
-        playKeySound(soundFile);
         keyboard.redraw(keyNumber, isWhite, octaveBlockNumber);
     }
 
 
-    private void playKeySound(String soundFile) {
-        AudioClip sound = keySounds.get(soundFile);
+    private void playKeySound(KeyCode key) {
+        AudioClip sound = keyToSound.get(key);
         if(sound.isPlaying()) {
             return;
         }
@@ -249,128 +170,13 @@ public class ScalesTheoryController implements Initializable {
     }
 
     private void keyReleased(KeyEvent keyEvent) {
+
         keyboard.draw(width);
-
-        KeyCode key = keyEvent.getCode();
-        String soundFile = "";
-
-        switch (key) {
-            case Q -> {
-                soundFile = "/sound/C3.mp3";
-            }
-            case DIGIT2 -> {
-                soundFile = "/sound/Db3.mp3";
-            }
-            case W -> {
-                soundFile = "/sound/D3.mp3";
-            }
-            case DIGIT3 -> {
-                soundFile = "/sound/Eb3.aiff";
-            }
-            case E -> {
-                soundFile = "/sound/E3.aiff";
-            }
-            case R -> {
-                soundFile = "/sound/F3.aiff";
-            }
-            case DIGIT5 -> {
-                soundFile = "/sound/Gb3.aiff";
-            }
-            case T -> {
-                soundFile = "/sound/G3.aiff";
-            }
-            case DIGIT6 -> {
-                soundFile = "/sound/Ab3.aiff";
-            }
-            case Y -> {
-                soundFile = "/sound/A3.aiff";
-            }
-            case DIGIT7 -> {
-                soundFile = "/sound/Bb3.aiff";
-            }
-            case U -> {
-                soundFile = "/sound/B3.aiff";
-            }
-            case I -> {
-                soundFile = "/sound/C4.aiff";
-            }
-            case DIGIT9 -> {
-                soundFile = "/sound/Db4.aiff";
-            }
-            case O -> {
-                soundFile = "/sound/D4.aiff";
-            }
-            case DIGIT0 -> {
-                soundFile = "/sound/Eb4.aiff";
-            }
-            case P -> {
-                soundFile = "/sound/E4.aiff";
-            }
-            case BACK_QUOTE -> {
-                soundFile = "/sound/F4.aiff";
-            }
-            case A -> {
-                soundFile = "/sound/Gb4.aiff";
-            }
-            case Z -> {
-                soundFile = "/sound/G4.aiff";
-            }
-            case S -> {
-                soundFile = "/sound/Ab4.aiff";
-            }
-            case X -> {
-                soundFile = "/sound/A4.aiff";
-            }
-            case D -> {
-                soundFile = "/sound/Bb4.aiff";
-            }
-            case C -> {
-                soundFile = "/sound/B4.aiff";
-            }
-            case V -> {
-                soundFile = "/sound/C5.aiff";
-            }
-            case G -> {
-                soundFile = "/sound/Db5.aiff";
-            }
-            case B -> {
-                soundFile = "/sound/D5.aiff";
-            }
-            case H -> {
-                soundFile = "/sound/Eb5.aiff";
-            }
-            case N -> {
-                soundFile = "/sound/E5.aiff";
-            }
-            case M -> {
-                soundFile = "/sound/F5.aiff";
-            }
-            case K -> {
-                soundFile = "/sound/Gb5.aiff";
-            }
-            case COMMA -> {
-                soundFile = "/sound/G5.aiff";
-            }
-            case L -> {
-                soundFile = "/sound/Ab5.aiff";
-            }
-            case PERIOD -> {
-                soundFile = "/sound/A5.aiff";
-            }
-            case SEMICOLON -> {
-                soundFile = "/sound/Bb5.aiff";
-            }
-            case SLASH -> {
-                soundFile = "/sound/B5.aiff";
-            }
-        }
-
-        stopKeySound(soundFile);
+        stopKeySound(keyEvent.getCode());
     }
 
-
-    private void stopKeySound(String soundFile) {
-        AudioClip sound = keySounds.get(soundFile);
+    private void stopKeySound(KeyCode code) {
+        AudioClip sound = keyToSound.get(code);
         sound.stop();
     }
 
@@ -386,7 +192,68 @@ public class ScalesTheoryController implements Initializable {
     }
 
     public void fillKeySounds() {
+        List<KeyCode> codes = getCodes();
+
+        List<String> files = getFiles();
+
+        for(int i = 0; i < codes.size(); i++) {
+            KeyCode code = codes.get(i);
+            String file = files.get(i);
+
+            String path = Objects.requireNonNull(
+                            getClass().getResource(file))
+                    .toExternalForm();
+            AudioClip keySound = new AudioClip(path);
+            keyToSound.put(code, keySound);
+        }
+    }
+
+    private List<KeyCode> getCodes() {
+        List<KeyCode> codes = new ArrayList<>();
+        codes.add(KeyCode.Q);
+        codes.add(KeyCode.DIGIT2);
+        codes.add(KeyCode.W);
+        codes.add(KeyCode.DIGIT3);
+        codes.add(KeyCode.E);
+        codes.add(KeyCode.R);
+        codes.add(KeyCode.DIGIT5);
+        codes.add(KeyCode.T);
+        codes.add(KeyCode.DIGIT6);
+        codes.add(KeyCode.Y);
+        codes.add(KeyCode.DIGIT7);
+        codes.add(KeyCode.U);
+        codes.add(KeyCode.I);
+        codes.add(KeyCode.DIGIT9);
+        codes.add(KeyCode.O);
+        codes.add(KeyCode.DIGIT0);
+        codes.add(KeyCode.P);
+        codes.add(KeyCode.BACK_QUOTE);
+        codes.add(KeyCode.A);
+        codes.add(KeyCode.Z);
+        codes.add(KeyCode.S);
+        codes.add(KeyCode.X);
+        codes.add(KeyCode.D);
+        codes.add(KeyCode.C);
+        codes.add(KeyCode.V);
+        codes.add(KeyCode.G);
+        codes.add(KeyCode.B);
+        codes.add(KeyCode.H);
+        codes.add(KeyCode.N);
+        codes.add(KeyCode.M);
+        codes.add(KeyCode.K);
+        codes.add(KeyCode.COMMA);
+        codes.add(KeyCode.L);
+        codes.add(KeyCode.PERIOD);
+        codes.add(KeyCode.SEMICOLON);
+        codes.add(KeyCode.SLASH);
+
+        return codes;
+    }
+
+
+    private static List<String> getFiles() {
         List<String> files = new ArrayList<>();
+
         files.add("/sound/C3.mp3");
         files.add("/sound/Db3.mp3");
         files.add("/sound/D3.mp3");
@@ -423,15 +290,7 @@ public class ScalesTheoryController implements Initializable {
         files.add("/sound/A5.aiff");
         files.add("/sound/Bb5.aiff");
         files.add("/sound/B5.aiff");
-
-
-        for(String file : files) {
-            String path = Objects.requireNonNull(
-                            getClass().getResource(file))
-                    .toExternalForm();
-            AudioClip keySound = new AudioClip(path);
-            keySounds.put(file, keySound);
-        }
+        return files;
     }
 
 
