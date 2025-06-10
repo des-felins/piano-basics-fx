@@ -27,7 +27,6 @@ public class ScalesTheoryController implements Initializable {
     private final Map<KeyCode, AudioClip> keyToSound = new HashMap<>();
 
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -160,19 +159,21 @@ public class ScalesTheoryController implements Initializable {
 
 
     private void playKeySound(KeyCode key) {
-        AudioClip sound = keyToSound.get(key);
-        if(sound.isPlaying()) {
-            return;
-        }
-        else {
-            sound.play();
+        if (keyToSound.get(key) != null) {
+            AudioClip sound = keyToSound.get(key);
+            if (sound.isPlaying()) {
+                return;
+            } else {
+                sound.play();
+            }
         }
     }
 
     private void keyReleased(KeyEvent keyEvent) {
-
-        keyboard.draw(width);
-        stopKeySound(keyEvent.getCode());
+        if (keyToSound.get(keyEvent.getCode()) != null) {
+            keyboard.draw(width);
+            stopKeySound(keyEvent.getCode());
+        }
     }
 
     private void stopKeySound(KeyCode code) {
@@ -196,7 +197,7 @@ public class ScalesTheoryController implements Initializable {
 
         List<String> files = getFiles();
 
-        for(int i = 0; i < codes.size(); i++) {
+        for (int i = 0; i < codes.size(); i++) {
             KeyCode code = codes.get(i);
             String file = files.get(i);
 
