@@ -20,7 +20,13 @@ public class KeyboardBuilder {
     private final List<Integer> blackKeyOffsets = List.of(1, 3, 6, 8, 10); // semitone positions of black keys in octave
 
 
-    public void drawPiano(GraphicsContext gc, double width, double height) {
+    public void drawPiano(GraphicsContext gc,
+                          double width,
+                          double height,
+                          int keyNumber,
+                          int keyType,
+                          int octaveBlockNumber) {
+
         resizeKeys(width, height);
 
         int totalWhiteKeys = OCTAVES * 7;
@@ -28,42 +34,14 @@ public class KeyboardBuilder {
         // Draw white keys
         for (int i = 0; i < totalWhiteKeys; i++) {
             int x = i * WHITE_KEY_WIDTH;
-            gc.setFill(Color.WHITE);
-            gc.fillRect(x, 0, WHITE_KEY_WIDTH, WHITE_KEY_HEIGHT);
-            gc.setStroke(Color.BLACK);
-            gc.strokeRect(x, 0, WHITE_KEY_WIDTH, WHITE_KEY_HEIGHT);
-        }
 
-        // Draw black keys (overlapping white ones)
-        for (int octave = 0; octave < OCTAVES; octave++) {
-            for (int semitone : blackKeyOffsets) {
-                int indexInWhiteKeys = getWhiteKeyIndex(semitone);
-                int x = (octave * 7 + indexInWhiteKeys + 1) * WHITE_KEY_WIDTH - (BLACK_KEY_WIDTH / 2);
-                gc.setFill(Color.BLACK);
-                gc.fillRect(x, 0, BLACK_KEY_WIDTH, BLACK_KEY_HEIGHT);
+            if(keyType == 1 && keyNumber - 1 == i) {
+                gc.setFill(Color.LAVENDER);
             }
-        }
-    }
+            else {
+                gc.setFill(Color.WHITE);
+            }
 
-    public void redrawWithPressedKey(GraphicsContext gc, double width, double height,
-                                     int keyNumber, boolean isWhite, int octaveBlockNumber) {
-
-        resizeKeys(width, height);
-        if(isWhite) {
-            drawPressedWhiteKey(gc, keyNumber);
-        }
-        else {
-            drawPressedBlackKey(gc, keyNumber, octaveBlockNumber);
-        }
-    }
-
-    private void drawPressedBlackKey(GraphicsContext gc, int keyNumber, int octaveBlockNumber) {
-        int totalWhiteKeys = OCTAVES * 7;
-
-        // Draw white keys
-        for (int i = 0; i < totalWhiteKeys; i++) {
-            int x = i * WHITE_KEY_WIDTH;
-            gc.setFill(Color.WHITE);
             gc.fillRect(x, 0, WHITE_KEY_WIDTH, WHITE_KEY_HEIGHT);
             gc.setStroke(Color.BLACK);
             gc.strokeRect(x, 0, WHITE_KEY_WIDTH, WHITE_KEY_HEIGHT);
@@ -74,7 +52,7 @@ public class KeyboardBuilder {
             for (int semitone : blackKeyOffsets) {
                 int indexInWhiteKeys = getWhiteKeyIndex(semitone);
                 int x = (octave * 7 + indexInWhiteKeys + 1) * WHITE_KEY_WIDTH - (BLACK_KEY_WIDTH / 2);
-                if(keyNumber == indexInWhiteKeys && octaveBlockNumber - 1 == octave) {
+                if(keyType == 2 && keyNumber == indexInWhiteKeys && octaveBlockNumber - 1 == octave) {
                     gc.setFill(Color.LAVENDER);
                 }
                 else {
@@ -83,36 +61,6 @@ public class KeyboardBuilder {
                 gc.fillRect(x, 0, BLACK_KEY_WIDTH, BLACK_KEY_HEIGHT);
             }
         }
-    }
-
-    private void drawPressedWhiteKey(GraphicsContext gc, int keyNumber) {
-
-        int totalWhiteKeys = OCTAVES * 7;
-
-        // Draw white keys
-        for (int i = 0; i < totalWhiteKeys; i++) {
-            int x = i * WHITE_KEY_WIDTH;
-            if(keyNumber - 1 == i) {
-                gc.setFill(Color.LAVENDER);
-            }
-            else {
-                gc.setFill(Color.WHITE);
-            }
-            gc.fillRect(x, 0, WHITE_KEY_WIDTH, WHITE_KEY_HEIGHT);
-            gc.setStroke(Color.BLACK);
-            gc.strokeRect(x, 0, WHITE_KEY_WIDTH, WHITE_KEY_HEIGHT);
-        }
-
-        // Draw black keys (overlapping white ones)
-        for (int octave = 0; octave < OCTAVES; octave++) {
-            for (int semitone : blackKeyOffsets) {
-                int indexInWhiteKeys = getWhiteKeyIndex(semitone);
-                int x = (octave * 7 + indexInWhiteKeys + 1) * WHITE_KEY_WIDTH - (BLACK_KEY_WIDTH / 2);
-                gc.setFill(Color.BLACK);
-                gc.fillRect(x, 0, BLACK_KEY_WIDTH, BLACK_KEY_HEIGHT);
-            }
-        }
-
     }
 
     // Helper: map black key semitone to position in white keys

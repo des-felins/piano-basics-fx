@@ -48,113 +48,113 @@ public class ScalesTheoryController implements Initializable {
             }
         });
 
-        keyboard.draw(width);
+        keyboard.draw(width, 0, 0, 0);
     }
 
     private void keyPressed(KeyEvent e) {
         KeyCode key = e.getCode();
         int keyNumber = 0;
         int octaveBlockNumber = 0;
-        boolean isWhite = true;
+        int keyType = 1;
 
         playKeySound(key);
 
         switch (key) {
             case Q -> keyNumber = 1;
             case DIGIT2 -> {
-                isWhite = false;
+                keyType = 2;
                 octaveBlockNumber = 1;
             }
             case W -> keyNumber = 2;
             case DIGIT3 -> {
                 keyNumber = 1;
-                isWhite = false;
+                keyType = 2;
                 octaveBlockNumber = 1;
             }
             case E -> keyNumber = 3;
             case R -> keyNumber = 4;
             case DIGIT5 -> {
                 keyNumber = 3;
-                isWhite = false;
+                keyType = 2;
                 octaveBlockNumber = 1;
             }
             case T -> keyNumber = 5;
             case DIGIT6 -> {
                 keyNumber = 4;
-                isWhite = false;
+                keyType = 2;
                 octaveBlockNumber = 1;
             }
             case Y -> keyNumber = 6;
             case DIGIT7 -> {
                 keyNumber = 5;
-                isWhite = false;
+                keyType = 2;
                 octaveBlockNumber = 1;
             }
             case U -> keyNumber = 7;
             case I -> keyNumber = 8;
             case DIGIT9 -> {
-                isWhite = false;
+                keyType = 2;
                 octaveBlockNumber = 2;
             }
             case O -> keyNumber = 9;
             case DIGIT0 -> {
                 keyNumber = 1;
-                isWhite = false;
+                keyType = 2;
                 octaveBlockNumber = 2;
             }
             case P -> keyNumber = 10;
             case BACK_QUOTE -> keyNumber = 11;
             case A -> {
                 keyNumber = 3;
-                isWhite = false;
+                keyType = 2;
                 octaveBlockNumber = 2;
             }
             case Z -> keyNumber = 12;
             case S -> {
                 keyNumber = 4;
-                isWhite = false;
+                keyType = 2;
                 octaveBlockNumber = 2;
             }
             case X -> keyNumber = 13;
             case D -> {
                 keyNumber = 5;
-                isWhite = false;
+                keyType = 2;
                 octaveBlockNumber = 2;
             }
             case C -> keyNumber = 14;
             case V -> keyNumber = 15;
             case G -> {
-                isWhite = false;
+                keyType = 2;
                 octaveBlockNumber = 3;
             }
             case B -> keyNumber = 16;
             case H -> {
                 keyNumber = 1;
-                isWhite = false;
+                keyType = 2;
                 octaveBlockNumber = 3;
             }
             case N -> keyNumber = 17;
             case M -> keyNumber = 18;
             case K -> {
                 keyNumber = 3;
-                isWhite = false;
+                keyType = 2;
                 octaveBlockNumber = 3;
             }
             case COMMA -> keyNumber = 19;
             case L -> {
                 keyNumber = 4;
-                isWhite = false;
+                keyType = 2;
                 octaveBlockNumber = 3;
             }
             case PERIOD -> keyNumber = 20;
             case SEMICOLON -> {
                 keyNumber = 5;
-                isWhite = false;
+                keyType = 2;
                 octaveBlockNumber = 3;
             }
             case SLASH -> keyNumber = 21;
         }
-        keyboard.redraw(keyNumber, isWhite, octaveBlockNumber);
+        keyboard.draw(width, keyNumber, keyType, octaveBlockNumber);
     }
 
 
@@ -171,7 +171,7 @@ public class ScalesTheoryController implements Initializable {
 
     private void keyReleased(KeyEvent keyEvent) {
         if (keyToSound.get(keyEvent.getCode()) != null) {
-            keyboard.draw(width);
+            keyboard.draw(width, 0, 0, 0);
             stopKeySound(keyEvent.getCode());
         }
     }
@@ -187,7 +187,7 @@ public class ScalesTheoryController implements Initializable {
         width = event.getSceneWidth().doubleValue() - 10;
 
         if (keyboard != null) {
-            keyboard.draw(width);
+            keyboard.draw(width, 0, 0, 0);
         }
 
     }
