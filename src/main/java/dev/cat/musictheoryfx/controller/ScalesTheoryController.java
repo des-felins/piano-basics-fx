@@ -103,7 +103,7 @@ public class ScalesTheoryController implements Initializable {
                 octaveBlockNumber = 2;
             }
             case P -> keyNumber = 10;
-            case BACK_QUOTE -> keyNumber = 11;
+            case SHIFT -> keyNumber = 11;
             case A -> {
                 keyNumber = 3;
                 keyType = 2;
@@ -228,7 +228,7 @@ public class ScalesTheoryController implements Initializable {
         codes.add(KeyCode.O);
         codes.add(KeyCode.DIGIT0);
         codes.add(KeyCode.P);
-        codes.add(KeyCode.BACK_QUOTE);
+        codes.add(KeyCode.SHIFT);
         codes.add(KeyCode.A);
         codes.add(KeyCode.Z);
         codes.add(KeyCode.S);
