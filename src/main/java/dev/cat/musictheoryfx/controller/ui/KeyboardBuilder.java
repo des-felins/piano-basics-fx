@@ -4,6 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -16,6 +17,12 @@ public class KeyboardBuilder {
     private int BLACK_KEY_WIDTH = 29;
     private int BLACK_KEY_HEIGHT = 125;
 
+    private List<Character> keyToWhiteKey = List.of('Q', 'W', 'E', 'R', 'T', 'Y',
+            'U', 'I', 'O', 'P', '⇧', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', '<', '>', '/');
+    private List<Character> keyToBlackKey = List.of('2', '3', '5', '7', '9',
+            '0', 'A', 'S', 'D', 'G', 'H', 'K', 'L', ';');
+
+
 
     private final List<Integer> blackKeyOffsets = List.of(1, 3, 6, 8, 10); // semitone positions of black keys in octave
 
@@ -25,7 +32,7 @@ public class KeyboardBuilder {
                           double height,
                           int keyNumber,
                           int keyType,
-                          int octaveBlockNumber) {
+                          int octaveBlockNumber, boolean drawWithKeys) {
 
         resizeKeys(width, height);
 
@@ -43,7 +50,15 @@ public class KeyboardBuilder {
             }
 
             gc.fillRect(x, 0, WHITE_KEY_WIDTH, WHITE_KEY_HEIGHT);
-            gc.setStroke(Color.BLACK);
+
+
+            if(drawWithKeys) {
+                gc.setStroke(Color.RED);
+            //    gc.strokeText(String.valueOf(keyToWhiteKey.get(i)), WHITE_KEY_WIDTH, WHITE_KEY_HEIGHT);
+            }
+            else {
+                gc.setStroke(Color.BLACK);
+            }
             gc.strokeRect(x, 0, WHITE_KEY_WIDTH, WHITE_KEY_HEIGHT);
         }
 
@@ -93,5 +108,9 @@ public class KeyboardBuilder {
         BLACK_KEY_HEIGHT = 125;
 
     }
+
+
+
+
 
 }

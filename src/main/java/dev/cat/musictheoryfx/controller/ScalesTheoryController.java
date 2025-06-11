@@ -1,13 +1,18 @@
 package dev.cat.musictheoryfx.controller;
 
 import dev.cat.musictheoryfx.controller.ui.ResizableCanvas;
+import dev.cat.musictheoryfx.event.HintEvent;
 import dev.cat.musictheoryfx.event.SceneResizeEvent;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.CheckBox;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.media.AudioClip;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
@@ -22,15 +27,42 @@ public class ScalesTheoryController implements Initializable {
     private ResizableCanvas keyboard;
     private double width = 1000;
 
+    @FXML
+    private CheckBox showKeys;
+
     EventHandler<KeyEvent> keyPressListener = this::keyPressed;
     EventHandler<KeyEvent> keyReleaseListener = this::keyReleased;
     private final Map<KeyCode, AudioClip> keyToSound = new HashMap<>();
+
+    private final ApplicationEventPublisher eventPublisher;
+
+    boolean drawWithKeys = false;
+
+
+    private int savedKeyNumber = 0;
+    private int savedKeyType = 0;
+    private int savedOctaveBlockNumber = 0;
+
+
+    public ScalesTheoryController(ApplicationEventPublisher eventPublisher) {
+        this.eventPublisher = eventPublisher;
+    }
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
         fillKeySounds();
+
+        showKeys.selectedProperty().addListener(new ChangeListener<>() {
+
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable,
+                                Boolean oldProperty,
+                                Boolean newProperty) {
+                eventPublisher.publishEvent(new HintEvent(this, newProperty));
+            }
+        });
 
         keyboard.sceneProperty().addListener((observableValue,
                                               oldScene,
@@ -48,7 +80,7 @@ public class ScalesTheoryController implements Initializable {
             }
         });
 
-        keyboard.draw(width, 0, 0, 0);
+        keyboard.draw(width, 0, 0, 0, drawWithKeys);
     }
 
     private void keyPressed(KeyEvent e) {
@@ -154,7 +186,10 @@ public class ScalesTheoryController implements Initializable {
             }
             case SLASH -> keyNumber = 21;
         }
-        keyboard.draw(width, keyNumber, keyType, octaveBlockNumber);
+        savedKeyNumber = keyNumber;
+        savedKeyType = keyType;
+        savedOctaveBlockNumber = octaveBlockNumber;
+        keyboard.draw(width, keyNumber, keyType, octaveBlockNumber, drawWithKeys);
     }
 
 
@@ -171,7 +206,7 @@ public class ScalesTheoryController implements Initializable {
 
     private void keyReleased(KeyEvent keyEvent) {
         if (keyToSound.get(keyEvent.getCode()) != null) {
-            keyboard.draw(width, 0, 0, 0);
+            keyboard.draw(width, 0, 0, 0, drawWithKeys);
             stopKeySound(keyEvent.getCode());
         }
     }
@@ -187,7 +222,7 @@ public class ScalesTheoryController implements Initializable {
         width = event.getSceneWidth().doubleValue() - 10;
 
         if (keyboard != null) {
-            keyboard.draw(width, 0, 0, 0);
+            keyboard.draw(width, 0, 0, 0, drawWithKeys);
         }
 
     }
@@ -292,6 +327,13 @@ public class ScalesTheoryController implements Initializable {
         files.add("/sound/Bb5.mp3");
         files.add("/sound/B5.mp3");
         return files;
+    }
+
+
+    @EventListener
+    public void handleHintEvent(HintEvent event) {
+        drawWithKeys = event.isShowHints();
+        keyboard.draw(width, savedKeyNumber, savedKeyType, savedOctaveBlockNumber, drawWithKeys);
     }
 
 
