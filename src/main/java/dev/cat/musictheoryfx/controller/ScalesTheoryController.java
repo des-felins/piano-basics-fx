@@ -302,7 +302,7 @@ public class ScalesTheoryController implements Initializable {
         files.add("/sound/A3.mp3");
         files.add("/sound/Bb3.mp3");
         files.add("/sound/B3.mp3");
-        files.add("/sound/C4.mp3");
+        files.add("/sound/C4.wav");
         files.add("/sound/Db4.mp3");
         files.add("/sound/D4.mp3");
         files.add("/sound/Eb4.mp3");

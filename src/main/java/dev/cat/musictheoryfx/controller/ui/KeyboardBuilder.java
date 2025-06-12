@@ -2,6 +2,7 @@ package dev.cat.musictheoryfx.controller.ui;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class KeyboardBuilder {
 
     private List<Character> keyToWhiteKey = List.of('Q', 'W', 'E', 'R', 'T', 'Y',
             'U', 'I', 'O', 'P', '⇧', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', '<', '>', '/');
-    private List<Character> keyToBlackKey = List.of('2', '3', '5', '7', '9',
+    private List<Character> keyToBlackKey = List.of('2', '3', '5', '6', '7', '9',
             '0', 'A', 'S', 'D', 'G', 'H', 'K', 'L', ';');
 
 
@@ -50,20 +51,20 @@ public class KeyboardBuilder {
             }
 
             gc.fillRect(x, 0, WHITE_KEY_WIDTH, WHITE_KEY_HEIGHT);
-
+            gc.setStroke(Color.BLACK);
+            gc.strokeRect(x, 0, WHITE_KEY_WIDTH, WHITE_KEY_HEIGHT);
 
             if(drawWithKeys) {
-                gc.setStroke(Color.RED);
-            //    gc.strokeText(String.valueOf(keyToWhiteKey.get(i)), WHITE_KEY_WIDTH, WHITE_KEY_HEIGHT);
+                gc.setFont(new Font("Verdana", 12));
+                gc.strokeText(String.valueOf(keyToWhiteKey.get(i)), x + 10, WHITE_KEY_HEIGHT - 10);
             }
-            else {
-                gc.setStroke(Color.BLACK);
-            }
-            gc.strokeRect(x, 0, WHITE_KEY_WIDTH, WHITE_KEY_HEIGHT);
         }
+
+        int blackKeyIndex = 0;
 
         // Draw black keys (overlapping white ones)
         for (int octave = 0; octave < OCTAVES; octave++) {
+
             for (int semitone : blackKeyOffsets) {
                 int indexInWhiteKeys = getWhiteKeyIndex(semitone);
                 int x = (octave * 7 + indexInWhiteKeys + 1) * WHITE_KEY_WIDTH - (BLACK_KEY_WIDTH / 2);
@@ -74,6 +75,13 @@ public class KeyboardBuilder {
                     gc.setFill(Color.BLACK);
                 }
                 gc.fillRect(x, 0, BLACK_KEY_WIDTH, BLACK_KEY_HEIGHT);
+
+                if(drawWithKeys) {
+                    gc.setStroke(Color.WHITE);
+                    gc.setFont(new Font("Verdana", 12));
+                    gc.strokeText(String.valueOf(keyToBlackKey.get(blackKeyIndex)), x + 10, BLACK_KEY_HEIGHT - 10);
+                }
+                blackKeyIndex++;
             }
         }
     }
