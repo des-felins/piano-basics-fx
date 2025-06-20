@@ -1,11 +1,11 @@
 package dev.cat.musictheoryfx.controller.ui;
 
+import dev.cat.musictheoryfx.controller.ScalesTheoryController;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -30,10 +30,7 @@ public class KeyboardBuilder {
 
     public void drawPiano(GraphicsContext gc,
                           double width,
-                          double height,
-                          int keyNumber,
-                          int keyType,
-                          int octaveBlockNumber, boolean drawWithKeys) {
+                          double height, boolean drawWithKeys) {
 
         resizeKeys(width, height);
 
@@ -42,13 +39,8 @@ public class KeyboardBuilder {
         // Draw white keys
         for (int i = 0; i < totalWhiteKeys; i++) {
             int x = i * WHITE_KEY_WIDTH;
-
-            if(keyType == 1 && keyNumber - 1 == i) {
-                gc.setFill(Color.LAVENDER);
-            }
-            else {
                 gc.setFill(Color.WHITE);
-            }
+
 
             gc.fillRect(x, 0, WHITE_KEY_WIDTH, WHITE_KEY_HEIGHT);
             gc.setStroke(Color.BLACK);
@@ -68,12 +60,7 @@ public class KeyboardBuilder {
             for (int semitone : blackKeyOffsets) {
                 int indexInWhiteKeys = getWhiteKeyIndex(semitone);
                 int x = (octave * 7 + indexInWhiteKeys + 1) * WHITE_KEY_WIDTH - (BLACK_KEY_WIDTH / 2);
-                if(keyType == 2 && keyNumber == indexInWhiteKeys && octaveBlockNumber - 1 == octave) {
-                    gc.setFill(Color.LAVENDER);
-                }
-                else {
                     gc.setFill(Color.BLACK);
-                }
                 gc.fillRect(x, 0, BLACK_KEY_WIDTH, BLACK_KEY_HEIGHT);
 
                 if(drawWithKeys) {
@@ -85,6 +72,70 @@ public class KeyboardBuilder {
             }
         }
     }
+
+    public void drawPianoWithPressedKeys(GraphicsContext gc,
+                                         double width,
+                                         double height,
+                                         List<ScalesTheoryController.KeyInfo> keyInfos,
+                                         boolean drawWithKeys) {
+
+        resizeKeys(width, height);
+
+
+        int totalWhiteKeys = OCTAVES * 7;
+
+        // Draw white keys
+        for (int i = 0; i < totalWhiteKeys; i++) {
+            int x = i * WHITE_KEY_WIDTH;
+
+            gc.setFill(Color.WHITE);
+
+            for (ScalesTheoryController.KeyInfo info : keyInfos) {
+                if (info.keyType() == 1 && info.keyNumber() - 1 == i) {
+                    gc.setFill(Color.LAVENDER);
+                }
+            }
+
+                gc.fillRect(x, 0, WHITE_KEY_WIDTH, WHITE_KEY_HEIGHT);
+                gc.setStroke(Color.BLACK);
+                gc.strokeRect(x, 0, WHITE_KEY_WIDTH, WHITE_KEY_HEIGHT);
+
+                if (drawWithKeys) {
+                    gc.setFont(new Font("Verdana", 12));
+                    gc.strokeText(String.valueOf(keyToWhiteKey.get(i)), x + 10, WHITE_KEY_HEIGHT - 10);
+                }
+
+        }
+            int blackKeyIndex = 0;
+
+            // Draw black keys (overlapping white ones)
+            for (int octave = 0; octave < OCTAVES; octave++) {
+
+                for (int semitone : blackKeyOffsets) {
+                    int indexInWhiteKeys = getWhiteKeyIndex(semitone);
+                    int x = (octave * 7 + indexInWhiteKeys + 1) * WHITE_KEY_WIDTH - (BLACK_KEY_WIDTH / 2);
+
+                    gc.setFill(Color.BLACK);
+
+                    for(ScalesTheoryController.KeyInfo info : keyInfos) {
+
+                        if (info.keyType() == 2 && info.keyNumber() == indexInWhiteKeys && info.octaveBlockNumber() - 1 == octave) {
+                            gc.setFill(Color.LAVENDER);
+                        }
+                    }
+                    gc.fillRect(x, 0, BLACK_KEY_WIDTH, BLACK_KEY_HEIGHT);
+
+                    if (drawWithKeys) {
+                        gc.setStroke(Color.WHITE);
+                        gc.setFont(new Font("Verdana", 12));
+                        gc.strokeText(String.valueOf(keyToBlackKey.get(blackKeyIndex)), x + 10, BLACK_KEY_HEIGHT - 10);
+                    }
+                    blackKeyIndex++;
+                }
+            }
+
+        }
+
 
     // Helper: map black key semitone to position in white keys
     private int getWhiteKeyIndex(int semitone) {
@@ -116,9 +167,5 @@ public class KeyboardBuilder {
         BLACK_KEY_HEIGHT = 125;
 
     }
-
-
-
-
 
 }

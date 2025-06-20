@@ -1,41 +1,28 @@
 package dev.cat.musictheoryfx.controller.ui;
 
-import dev.cat.musictheoryfx.event.HintEvent;
+import dev.cat.musictheoryfx.controller.ScalesTheoryController;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import org.springframework.context.event.EventListener;
+
+import java.util.List;
 
 public class ResizableCanvas extends Canvas {
 
 
     public final KeyboardBuilder keyboardBuilder = new KeyboardBuilder();
     private final double MAX_HEIGHT = 300;
-    boolean drawWithKeys = false;
-
-
-    private int savedKeyNumber = 0;
-    private int savedKeyType = 0;
-    private int savedOctaveBlockNumber = 0;
 
     public ResizableCanvas() {
         setHeight(210);
     }
 
-    public void draw(double width,
-                     int keyNumber,
-                     int keyType,
-                     int octaveBlockNumber, boolean drawWithKeys) {
+    public void draw(double width, boolean drawWithKeys) {
         setSize(width);
-
-        savedKeyNumber = keyNumber;
-        savedKeyType = keyType;
-        savedOctaveBlockNumber = octaveBlockNumber;
 
 
         GraphicsContext gc = getGraphicsContext2D();
         gc.clearRect(0, 0, width, getHeight());
-        keyboardBuilder.drawPiano(gc, getWidth(), getHeight(),
-                keyNumber, keyType, octaveBlockNumber, drawWithKeys);
+        keyboardBuilder.drawPiano(gc, getWidth(), getHeight(), drawWithKeys);
     }
 
     public void setSize(double width) {
@@ -62,11 +49,14 @@ public class ResizableCanvas extends Canvas {
         return getHeight();
     }
 
-//    @EventListener
-//    public void handleHintEvent(HintEvent event) {
-//        System.out.println("In method handle hint event");
-//        drawWithKeys = event.isShowHints();
-//        draw(getWidth(), savedKeyNumber, savedKeyType, savedOctaveBlockNumber, drawWithKeys);
-//    }
+    public void drawWithPressedKeys(double width, List<ScalesTheoryController.KeyInfo> keyInfos, boolean drawWithKeys) {
+        setSize(width);
+
+
+        GraphicsContext gc = getGraphicsContext2D();
+        gc.clearRect(0, 0, width, getHeight());
+        keyboardBuilder.drawPianoWithPressedKeys(gc, getWidth(), getHeight(),
+                keyInfos, drawWithKeys);
+    }
 
 }
