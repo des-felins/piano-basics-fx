@@ -1,6 +1,5 @@
 package dev.cat.musictheoryfx.controller.ui;
 
-import dev.cat.musictheoryfx.controller.ScalesTheoryController;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -76,7 +75,7 @@ public class KeyboardBuilder {
     public void drawPianoWithPressedKeys(GraphicsContext gc,
                                          double width,
                                          double height,
-                                         List<ScalesTheoryController.KeyInfo> keyInfos,
+                                         List<KeyInfo> keyInfos,
                                          boolean drawWithKeys) {
 
         resizeKeys(width, height);
@@ -90,7 +89,7 @@ public class KeyboardBuilder {
 
             gc.setFill(Color.WHITE);
 
-            for (ScalesTheoryController.KeyInfo info : keyInfos) {
+            for (KeyInfo info : keyInfos) {
                 if (info.keyType() == 1 && info.keyNumber() - 1 == i) {
                     gc.setFill(Color.LAVENDER);
                 }
@@ -117,7 +116,7 @@ public class KeyboardBuilder {
 
                     gc.setFill(Color.BLACK);
 
-                    for(ScalesTheoryController.KeyInfo info : keyInfos) {
+                    for(KeyInfo info : keyInfos) {
 
                         if (info.keyType() == 2 && info.keyNumber() == indexInWhiteKeys && info.octaveBlockNumber() - 1 == octave) {
                             gc.setFill(Color.LAVENDER);

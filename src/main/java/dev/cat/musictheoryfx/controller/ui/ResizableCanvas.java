@@ -1,6 +1,5 @@
 package dev.cat.musictheoryfx.controller.ui;
 
-import dev.cat.musictheoryfx.controller.ScalesTheoryController;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -49,7 +48,7 @@ public class ResizableCanvas extends Canvas {
         return getHeight();
     }
 
-    public void drawWithPressedKeys(double width, List<ScalesTheoryController.KeyInfo> keyInfos, boolean drawWithKeys) {
+    public void drawWithPressedKeys(double width, List<KeyInfo> keyInfos, boolean drawWithKeys) {
         setSize(width);
 
 

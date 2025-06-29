@@ -5,6 +5,7 @@ import dev.cat.musictheoryfx.config.StageManager;
 import dev.cat.musictheoryfx.event.LoginEvent;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -24,10 +25,19 @@ public class HomeController implements Initializable {
     private Button theoryButton;
 
     @FXML
+    public Button generatorButton;
+
+    @FXML
     private Button scalesButton;
 
     @FXML
     private Button chordsButton;
+
+    @FXML
+    public Button intervalsButton;
+
+    @FXML
+    public Button dictationsButton;
 
     @FXML
     private Label helloLabel;
@@ -78,4 +88,15 @@ public class HomeController implements Initializable {
         nameProperty.setValue("Hello, " + event.getUserName() + "!");
     }
 
+    @FXML
+    public void switchToIntervalsScene(ActionEvent actionEvent) {
+        stageManager.switchToNextScene(FxmlView.INTERVALS);
+
+    }
+
+
+    @FXML
+    public void switchToDictationsScene(ActionEvent actionEvent) {
+
+    }
 }

@@ -55,7 +55,7 @@
                   </Button>
                   <Button fx:id="scalesButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="100.0" minWidth="200.0" mnemonicParsing="false" onAction="#switchToScalesScene" text="PRACTICE SCALES" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
-                        <Insets right="5.0" top="5.0" />
+                        <Insets bottom="5.0" right="5.0" top="5.0" />
                      </GridPane.margin>
                      <font>
                         <Font size="16.0" />
@@ -63,12 +63,28 @@
                   </Button>
                   <Button fx:id="chordsButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="100.0" minWidth="200.0" mnemonicParsing="false" onAction="#switchToChordsScene" text="PRACTICE CHORDS" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                      <GridPane.margin>
-                        <Insets left="5.0" top="5.0" />
+                        <Insets bottom="5.0" left="5.0" top="5.0" />
                      </GridPane.margin>
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Button>
+                   <Button fx:id="intervalsButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="100.0" minWidth="200.0" mnemonicParsing="false" onAction="#switchToIntervalsScene" text="PRACTICE INTERVALS" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+                       <GridPane.margin>
+                           <Insets right="5.0" top="5.0" />
+                       </GridPane.margin>
+                       <font>
+                           <Font size="16.0" />
+                       </font>
+                   </Button>
+                   <Button fx:id="dictationsButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="100.0" minWidth="200.0" mnemonicParsing="false" onAction="#switchToDictationsScene" text="SOLFEGGIO DICTATIONS" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+                       <GridPane.margin>
+                           <Insets left="5.0" top="5.0" />
+                       </GridPane.margin>
+                       <font>
+                           <Font size="16.0" />
+                       </font>
+                   </Button>
                </children>
             </GridPane>
             <ImageView fx:id="gClef" fitHeight="350.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />

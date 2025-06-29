@@ -27,6 +27,14 @@ public enum FxmlView {
         }
     },
 
+    INTERVALS {
+
+        @Override
+        public String getFxmlPath() {
+            return "/fxml/intervals.fxml";
+        }
+    },
+
     SCALES_THEORY {
 
         @Override

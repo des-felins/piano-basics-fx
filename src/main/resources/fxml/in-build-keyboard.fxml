@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<?import dev.cat.musictheoryfx.controller.ui.ResizableCanvas?>
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="50.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.cat.musictheoryfx.controller.ui.KeyboardController">
+   <children>
+      <ResizableCanvas fx:id="keyboard" height="210.0" layoutX="155.0" layoutY="50.0" width="1000.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" />
+      <CheckBox fx:id="showKeys" layoutX="1.0" layoutY="5.0" mnemonicParsing="false" text="Show keyboard keys" AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="10.0" />
+   </children>
+</AnchorPane>

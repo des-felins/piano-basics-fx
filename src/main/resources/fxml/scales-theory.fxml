@@ -4,15 +4,16 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<?import dev.cat.musictheoryfx.controller.ui.ResizableCanvas?>
-<?import javafx.scene.control.CheckBox?>
+
 <SplitPane fx:id="scalesPane" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.cat.musictheoryfx.controller.ScalesTheoryController">
   <items>
       <fx:include source="toolbar.fxml" />
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="50.0" style="-fx-background-color: #FFFFFF;">
-         <children>
-             <CheckBox fx:id="showKeys" layoutX="23.0" layoutY="286.0" mnemonicParsing="false" text="Show keyboard keys" AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="10.0"/>
-             <ResizableCanvas fx:id="keyboard" height="210.0" layoutX="1.0" layoutY="192.0" width="1000.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" />
-         </children></AnchorPane>
+      <SplitPane dividerPositions="0.6319095477386935" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+          <items>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+              </AnchorPane>
+              <fx:include source="in-build-keyboard.fxml" />
+          </items>
+      </SplitPane>
   </items>
 </SplitPane>

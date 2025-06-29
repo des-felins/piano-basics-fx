@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<SplitPane fx:id="scalesPane" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.cat.musictheoryfx.controller.IntervalsController">
+    <items>
+        <fx:include source="toolbar.fxml" />
+      <SplitPane dividerPositions="0.6319095477386935" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <ButtonBar layoutX="99.0" layoutY="208.0" prefHeight="40.0" prefWidth="417.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="5.0">
+                    <buttons>
+                        <Button fx:id="playAgainButton" mnemonicParsing="false" onAction="#playAgain" text="Play again" />
+                        <Button fx:id="showNotesButton" mnemonicParsing="false" onAction="#showNotes" text="Show notes" />
+                      <Button fx:id="nextButton" mnemonicParsing="false" onAction="#getNextInterval" text="Next" />
+                    </buttons>
+                  </ButtonBar>
+                  <Label layoutX="22.0" layoutY="14.0" text="Click 'Next' to get a random interval" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+               </children>
+            </AnchorPane>
+              <fx:include source="in-build-keyboard.fxml" />
+        </items>
+      </SplitPane>
+    </items>
+</SplitPane>
