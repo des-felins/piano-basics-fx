@@ -15,7 +15,7 @@ public class KeyboardBuilder {
     private int WHITE_KEY_WIDTH = 44;
     private int WHITE_KEY_HEIGHT = 205;
     private int BLACK_KEY_WIDTH = 29;
-    private int BLACK_KEY_HEIGHT = 125;
+    private int BLACK_KEY_HEIGHT = (int) (0.61 * WHITE_KEY_HEIGHT);
 
     private List<Character> keyToWhiteKey = List.of('Q', 'W', 'E', 'R', 'T', 'Y',
             'U', 'I', 'O', 'P', '⇧', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', '<', '>', '/');
@@ -155,15 +155,14 @@ public class KeyboardBuilder {
         WHITE_KEY_WIDTH = (int) ((width / 1000) * WHITE_KEY_WIDTH);
         WHITE_KEY_HEIGHT = (int) (((height - 5) / 205) * WHITE_KEY_HEIGHT);
         BLACK_KEY_WIDTH = (int) ((width / 1000) * BLACK_KEY_WIDTH);
-        BLACK_KEY_HEIGHT = (int) (((height - 85) / 125) * BLACK_KEY_HEIGHT);
-
+        BLACK_KEY_HEIGHT = (int) (0.61 * WHITE_KEY_HEIGHT);
     }
 
     private void setStartingKeySize() {
         WHITE_KEY_WIDTH = 44;
         WHITE_KEY_HEIGHT = 205;
         BLACK_KEY_WIDTH = 29;
-        BLACK_KEY_HEIGHT = 125;
+        BLACK_KEY_HEIGHT = (int) (0.61 * WHITE_KEY_HEIGHT);
 
     }
 
