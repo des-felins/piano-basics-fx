@@ -1,6 +1,5 @@
 package dev.cat.musictheoryfx.controller.ui;
 
-import dev.cat.musictheoryfx.controller.ScalesTheoryController;
 import dev.cat.musictheoryfx.event.HintEvent;
 import dev.cat.musictheoryfx.event.SceneResizeEvent;
 import javafx.beans.value.ChangeListener;

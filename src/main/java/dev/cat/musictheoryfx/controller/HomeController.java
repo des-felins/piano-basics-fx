@@ -25,7 +25,7 @@ public class HomeController implements Initializable {
     private Button theoryButton;
 
     @FXML
-    public Button generatorButton;
+    private Button generatorButton;
 
     @FXML
     private Button scalesButton;
@@ -34,10 +34,10 @@ public class HomeController implements Initializable {
     private Button chordsButton;
 
     @FXML
-    public Button intervalsButton;
+    private Button intervalsButton;
 
     @FXML
-    public Button dictationsButton;
+    private Button dictationsButton;
 
     @FXML
     private Label helloLabel;
