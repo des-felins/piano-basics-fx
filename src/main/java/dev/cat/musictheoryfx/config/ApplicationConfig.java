@@ -29,3 +29,5 @@ public class ApplicationConfig {
         return new StageManager(fxmlLoader, stage, applicationTitle, eventPublisher);
     }
 }
+
+// Сибелиус программа для печатания нот

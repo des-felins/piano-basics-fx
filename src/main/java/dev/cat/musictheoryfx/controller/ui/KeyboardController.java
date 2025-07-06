@@ -2,6 +2,7 @@ package dev.cat.musictheoryfx.controller.ui;
 
 import dev.cat.musictheoryfx.event.HintEvent;
 import dev.cat.musictheoryfx.event.SceneResizeEvent;
+import dev.cat.musictheoryfx.event.ShowHideKeysEvent;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -11,6 +12,8 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.media.AudioClip;
+import org.apache.commons.collections4.BidiMap;
+import org.apache.commons.collections4.bidimap.DualHashBidiMap;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
@@ -29,14 +32,16 @@ public class KeyboardController implements Initializable {
 
     EventHandler<KeyEvent> keyPressListener = this::keyPressed;
     EventHandler<KeyEvent> keyReleaseListener = this::keyReleased;
-    private final Map<KeyCode, AudioClip> keyToSound = new HashMap<>();
-    Set<KeyCode> pressedKeys = new HashSet<>();
-    Map<KeyCode, KeyInfo> keyInfos = new HashMap<>();
+    private BidiMap<KeyCode, AudioClip> keyToSound = new DualHashBidiMap<>();
+    private Map<AudioClip, KeyCode> soundToKey = new HashMap<>();
+    private Set<KeyCode> pressedKeys = new HashSet<>();
+    private Map<KeyCode, KeyInfo> keyInfos = new HashMap<>();
 
     private final ApplicationEventPublisher eventPublisher;
 
     boolean drawWithKeys = false;
 
+    public final SoundBuilder soundBuilder = SoundBuilder.getInstance();
 
     public KeyboardController(ApplicationEventPublisher eventPublisher) {
         this.eventPublisher = eventPublisher;
@@ -79,11 +84,17 @@ public class KeyboardController implements Initializable {
 
     private void keyPressed(KeyEvent e) {
 
-        if(keyToSound.containsKey(e.getCode())) {
+        if (keyToSound.containsKey(e.getCode())) {
             pressedKeys.add(e.getCode());
         }
 
-        for(KeyCode key : pressedKeys) {
+        drawAndPlay();
+
+    }
+
+    private void drawAndPlay() {
+
+        for (KeyCode key : pressedKeys) {
 
             int keyNumber = 0;
             int octaveBlockNumber = 0;
@@ -233,18 +244,15 @@ public class KeyboardController implements Initializable {
     public void fillKeySounds() {
         List<KeyCode> codes = getCodes();
 
-        List<String> files = getFiles();
+        List<AudioClip> files = getFiles();
 
         for (int i = 0; i < codes.size(); i++) {
             KeyCode code = codes.get(i);
-            String file = files.get(i);
-
-            String path = Objects.requireNonNull(
-                            getClass().getResource(file))
-                    .toExternalForm();
-            AudioClip keySound = new AudioClip(path);
+            AudioClip keySound = files.get(i);
             keyToSound.put(code, keySound);
         }
+
+        soundToKey.putAll(keyToSound.inverseBidiMap());
     }
 
     private List<KeyCode> getCodes() {
@@ -290,46 +298,8 @@ public class KeyboardController implements Initializable {
     }
 
 
-    private static List<String> getFiles() {
-        List<String> files = new ArrayList<>();
-
-        files.add("/sound/C3.wav");
-        files.add("/sound/Db3.wav");
-        files.add("/sound/D3.wav");
-        files.add("/sound/Eb3.wav");
-        files.add("/sound/E3.wav");
-        files.add("/sound/F3.wav");
-        files.add("/sound/Gb3.wav");
-        files.add("/sound/G3.wav");
-        files.add("/sound/Ab3.wav");
-        files.add("/sound/A3.wav");
-        files.add("/sound/Bb3.wav");
-        files.add("/sound/B3.wav");
-        files.add("/sound/C4.wav");
-        files.add("/sound/Db4.wav");
-        files.add("/sound/D4.wav");
-        files.add("/sound/Eb4.wav");
-        files.add("/sound/E4.wav");
-        files.add("/sound/F4.wav");
-        files.add("/sound/Gb4.wav");
-        files.add("/sound/G4.wav");
-        files.add("/sound/Ab4.wav");
-        files.add("/sound/A4.wav");
-        files.add("/sound/Bb4.wav");
-        files.add("/sound/B4.wav");
-        files.add("/sound/C5.wav");
-        files.add("/sound/Db5.wav");
-        files.add("/sound/D5.wav");
-        files.add("/sound/Eb5.wav");
-        files.add("/sound/E5.wav");
-        files.add("/sound/F5.wav");
-        files.add("/sound/Gb5.wav");
-        files.add("/sound/G5.wav");
-        files.add("/sound/Ab5.wav");
-        files.add("/sound/A5.wav");
-        files.add("/sound/Bb5.wav");
-        files.add("/sound/B5.wav");
-        return files;
+    private List<AudioClip> getFiles() {
+        return soundBuilder.getSounds();
     }
 
 
@@ -337,6 +307,31 @@ public class KeyboardController implements Initializable {
     public void handleHintEvent(HintEvent event) {
         drawWithKeys = event.isShowHints();
         keyboard.draw(width, drawWithKeys);
+    }
+
+    @EventListener
+    public void handleShowNotesEvent(ShowHideKeysEvent event) {
+
+        if (event.mustShowKeys()) {
+            matchKeyToSound(soundBuilder.getCurrentSounds());
+        } else {
+            keyboard.draw(width, drawWithKeys);
+        }
+    }
+
+
+    public void matchKeyToSound(List<AudioClip> sounds) {
+
+        pressedKeys.clear();
+        keyInfos.clear();
+
+        for (AudioClip sound : sounds) {
+            if (soundToKey.containsKey(sound)) {
+                pressedKeys.add(soundToKey.get(sound));
+            }
+        }
+        drawAndPlay();
+
     }
 
 

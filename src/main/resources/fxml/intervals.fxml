@@ -21,7 +21,7 @@
                       <Button fx:id="nextButton" mnemonicParsing="false" onAction="#getNextInterval" text="Next" />
                     </buttons>
                   </ButtonBar>
-                  <Label layoutX="22.0" layoutY="14.0" text="Click 'Next' to get a random interval. You will hear three variations of the interval: harmonic, melodic ascending, and melodic descending. The interval can be re-played as many times as you need. Select the interval from the drop box and click 'submit'. You can click 'Show notes' to see which notes were played, but if you choose this option before submitting the answer, you won't be able to choose the answer afterwards and this task will be automatically marked as NOT DONE. Upon completing the exercise, you will get your overall score." AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                  <Label layoutX="22.0" layoutY="14.0" text="Click 'Next' to get a random interval. You will hear two variations of the interval: harmonic and melodic ascending. The interval can be re-played as many times as you need. Select the interval from the drop box and click 'submit'. You can click 'Show notes' to see on the keyboard which notes were played." AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                    <Label fx:id="responseLabel" layoutX="284.0" layoutY="135.0" prefHeight="27.0" prefWidth="133.0" text="Label" AnchorPane.leftAnchor="280.0" AnchorPane.topAnchor="130.0" />
                    <ComboBox fx:id="comboBox" layoutX="14.0" layoutY="131.0" onAction="#submitAnswer" prefHeight="27.0" prefWidth="227.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="130.0" />
                </children>
