@@ -3,11 +3,13 @@ package dev.cat.musictheoryfx.controller;
 import dev.cat.musictheoryfx.controller.ui.SoundBuilder;
 import dev.cat.musictheoryfx.event.ShowHideKeysEvent;
 import dev.cat.musictheoryfx.notefactory.Interval;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -88,12 +90,10 @@ public class IntervalsController implements Initializable {
 
     @FXML
     public void getNextInterval(ActionEvent actionEvent) {
-        soundBuilder.clearCurrentSounds();
 
+        soundBuilder.clearCurrentSounds();
         eventPublisher.publishEvent(new ShowHideKeysEvent(this, false));
 
-        responseProperty.setValue(null);
-        nextButton.setDisable(true);
 
         interval = getRandomInterval();
 
@@ -103,19 +103,18 @@ public class IntervalsController implements Initializable {
 
 
         int semiTones = interval.getSemiTones();
-        int startingPoint = randomSound.nextInt(36);
-
-
-        while (startingPoint + semiTones > soundBuilder.getSoundCount() - 1) {
-            startingPoint = startingPoint - 1;
-        }
-
+        int startingPoint = randomSound.nextInt(24);
 
         firstSound = soundBuilder.getSound(startingPoint);
         soundBuilder.addCurrentSound(firstSound);
 
         secondSound = soundBuilder.getSound(startingPoint + semiTones);
         soundBuilder.addCurrentSound(secondSound);
+
+
+        responseProperty.setValue("");
+        nextButton.setDisable(true);
+        comboBox.setValue("");
 
         playSounds(firstSound, secondSound);
 
@@ -157,7 +156,9 @@ public class IntervalsController implements Initializable {
     public void submitAnswer(ActionEvent actionEvent) {
         String data = comboBox.getValue();
 
-        if (data.equals(interval.getDescription())) {
+        if (data.isBlank()) {
+            responseProperty.setValue("");
+        } else if (data.equals(interval.getDescription())) {
             responseProperty.setValue("RIGHT");
             nextButton.setDisable(false);
         } else responseProperty.setValue("WRONG");
