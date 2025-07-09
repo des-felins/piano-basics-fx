@@ -3,13 +3,11 @@ package dev.cat.musictheoryfx.controller;
 import dev.cat.musictheoryfx.controller.ui.SoundBuilder;
 import dev.cat.musictheoryfx.event.ShowHideKeysEvent;
 import dev.cat.musictheoryfx.notefactory.Interval;
-import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -21,6 +19,8 @@ import org.springframework.stereotype.Component;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 
 @Component
 public class IntervalsController implements Initializable {
@@ -40,6 +40,8 @@ public class IntervalsController implements Initializable {
     public final SoundBuilder soundBuilder = SoundBuilder.getInstance();
 
     private final ApplicationEventPublisher eventPublisher;
+
+    private final Timer timer = new Timer();
 
     Interval interval;
     private final Random randomInterval = new Random();
@@ -121,25 +123,39 @@ public class IntervalsController implements Initializable {
     }
 
     private void playSounds(AudioClip firstSound, AudioClip secondSound) {
-        try {
-            firstSound.play();
-            secondSound.play();
 
-            Thread.sleep(3000);
+        firstSound.play();
+        secondSound.play();
 
-            firstSound.stop();
-            secondSound.stop();
+        timer.schedule(new TimerTask(){
+            @Override
+            public void run() {
+                firstSound.stop();
+                secondSound.stop();
+            }
+        }, 3000);
 
-            firstSound.play();
-            Thread.sleep(1000);
-            firstSound.stop();
-            secondSound.play();
-            Thread.sleep(1000);
-            secondSound.stop();
+        timer.schedule(new TimerTask(){
+            @Override
+            public void run() {
+                firstSound.play();
+            }
+        }, 3100);
 
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        timer.schedule(new TimerTask(){
+            @Override
+            public void run() {
+                firstSound.stop();
+                secondSound.play();
+            }
+        }, 4100);
+
+        timer.schedule(new TimerTask(){
+            @Override
+            public void run() {
+                secondSound.stop();
+            }
+        }, 5100);
 
     }
 
