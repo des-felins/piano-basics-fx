@@ -1,6 +1,5 @@
 package dev.cat.musictheoryfx.controller.ui;
 
-import javafx.scene.input.KeyCode;
 import javafx.scene.media.AudioClip;
 import org.springframework.stereotype.Component;
 
@@ -12,8 +11,11 @@ import java.util.Objects;
 public class SoundBuilder {
 
     private static final List<AudioClip> sounds = new ArrayList<>();
+    private static final List<AudioClip> keySounds = new ArrayList<>();
     private static List<AudioClip> currentSounds = new ArrayList<>();
     private static volatile SoundBuilder instance;
+
+    //map<clip,key>
 
     public static SoundBuilder getInstance() {
         SoundBuilder localInstance = instance;

@@ -113,4 +113,8 @@ public enum Pitch {
         return pitchesAnticlockwise.get(position);
     }
 
+    Pitch getPitchByPosition(int position) {
+        return pitchesClockwise.get(position);
+    }
+
 }
