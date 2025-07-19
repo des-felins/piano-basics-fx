@@ -53,6 +53,10 @@ public class ScalesController implements Initializable {
 
     }
 
+    // the app should not build scales in advance
+    // it waits for the first key pushed by user and if it is correct and the octave can be built
+    // it builds the scale from here
+
     @FXML
     void getNextScale() {
 

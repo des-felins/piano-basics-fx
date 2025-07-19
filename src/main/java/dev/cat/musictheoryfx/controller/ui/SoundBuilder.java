@@ -1,5 +1,7 @@
 package dev.cat.musictheoryfx.controller.ui;
 
+import dev.cat.musictheoryfx.notefactory.Octave;
+import dev.cat.musictheoryfx.notefactory.Pitch;
 import javafx.scene.media.AudioClip;
 import org.springframework.stereotype.Component;
 
@@ -10,12 +12,10 @@ import java.util.Objects;
 @Component
 public class SoundBuilder {
 
-    private static final List<AudioClip> sounds = new ArrayList<>();
-    private static final List<AudioClip> keySounds = new ArrayList<>();
     private static List<AudioClip> currentSounds = new ArrayList<>();
     private static volatile SoundBuilder instance;
 
-    //map<clip,key>
+    private static List<Key> keys = new ArrayList<>();
 
     public static SoundBuilder getInstance() {
         SoundBuilder localInstance = instance;
@@ -27,11 +27,12 @@ public class SoundBuilder {
                 }
             }
         }
-        populateSounds();
+        populateKeys();
         return localInstance;
     }
 
-    private static void populateSounds() {
+    private static void populateKeys() {
+        List<AudioClip> sounds = new ArrayList<>();
         List<String> files = new ArrayList<>();
 
         files.add("/sound/C3.wav");
@@ -80,18 +81,21 @@ public class SoundBuilder {
             AudioClip keySound = new AudioClip(path);
             sounds.add(keySound);
         }
+
+        keys.addAll(KeyFactory.buildKeys(sounds));
+
     }
 
     public AudioClip getSound(int index) {
-        return sounds.get(index);
+        return keys.get(index).audioClip();
     }
 
     public int getSoundCount() {
-        return sounds.size();
+        return keys.size();
     }
 
     public List<AudioClip> getSounds() {
-        return sounds;
+        return keys.stream().map(Key::audioClip).toList();
     }
 
     public void addCurrentSound(AudioClip sound) {
@@ -104,5 +108,34 @@ public class SoundBuilder {
 
     public void clearCurrentSounds() {
         currentSounds.clear();
+    }
+
+    static final class KeyFactory {
+
+        public static List<Key> buildKeys(List<AudioClip> clips) {
+            return buildKeys(clips, Pitch.C, Octave.SMALL);
+        }
+
+
+        public static List<Key> buildKeys(List<AudioClip> clips,
+                                          Pitch startingPitch,
+                                          Octave startingOctave) {
+
+            if (clips.size() != 36)
+                throw new IllegalArgumentException("Expected 36 audio clips, got " + clips.size());
+
+            Pitch[] pitches = Pitch.values();
+            Octave[] octaves = Octave.values();
+
+            List<Key> keys = new ArrayList<>(36);
+
+            for (int i = 0; i < 36; i++) {
+                Pitch pitch  = pitches[i % 12];
+                Octave octave = octaves[i / 12];
+                keys.add(new Key(clips.get(i), pitch, octave));
+            }
+            return List.copyOf(keys);
+
+        }
     }
 }

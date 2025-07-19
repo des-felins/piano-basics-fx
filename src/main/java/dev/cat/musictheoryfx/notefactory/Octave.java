@@ -11,4 +11,10 @@ public enum Octave {
     Octave(int octaveSPN) {
         this.octaveSPN = octaveSPN;
     }
+
+    public static Octave of(int spn) {
+        for (Octave o : values()) if (o.octaveSPN == spn) return o;
+        throw new IllegalArgumentException("Unsupported octave (out of 3-octave range): " + spn);
+    }
+
 }

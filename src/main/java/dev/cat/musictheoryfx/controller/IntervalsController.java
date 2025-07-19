@@ -100,11 +100,6 @@ public class IntervalsController implements Initializable {
 
         interval = getRandomInterval();
 
-        //For dev mode only
-
-        System.out.println(interval.getDescription());
-
-
         int semiTones = interval.getSemiTones();
         int startingPoint = randomSound.nextInt(24);
 
