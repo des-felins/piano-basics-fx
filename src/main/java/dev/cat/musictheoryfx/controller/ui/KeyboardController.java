@@ -32,7 +32,7 @@ public class KeyboardController implements Initializable {
     EventHandler<KeyEvent> keyReleaseListener = this::keyReleased;
 
     private final List<Key> keys = new ArrayList<>();
-    private final Set<KeyCode> pressedKeys = new HashSet<>();
+    private final Set<Key> pressedKeys = new HashSet<>();
     private final Map<KeyCode, KeyInfo> keyInfos = new HashMap<>();
 
     private final ApplicationEventPublisher eventPublisher;
@@ -84,7 +84,7 @@ public class KeyboardController implements Initializable {
 
         for(Key key : keys) {
             if (key.keyCode().equals(e.getCode())) {
-                pressedKeys.add(key.keyCode());
+                pressedKeys.add(key);
             }
         }
 
@@ -94,7 +94,7 @@ public class KeyboardController implements Initializable {
 
     private void drawAndPlay() {
 
-        for (KeyCode key : pressedKeys) {
+        for (Key key : pressedKeys) {
 
             int keyNumber = 0;
             int octaveBlockNumber = 0;
@@ -102,9 +102,9 @@ public class KeyboardController implements Initializable {
             //1 for white key, 2 for black key
             int keyType = 1;
 
-            playKeySound(key);
+            playKeySound(key.keyCode());
 
-            switch (key) {
+            switch (key.keyCode()) {
                 case Q -> keyNumber = 1;
                 case DIGIT2 -> {
                     keyType = 2;
@@ -200,7 +200,7 @@ public class KeyboardController implements Initializable {
                 case SLASH -> keyNumber = 21;
             }
 
-            keyInfos.put(key, new KeyInfo(keyNumber, octaveBlockNumber, keyType));
+            keyInfos.put(key.keyCode(), new KeyInfo(keyNumber, octaveBlockNumber, keyType));
         }
 
         keyboard.drawWithPressedKeys(width, keyInfos.values().stream().toList(), drawWithKeys);
@@ -224,7 +224,7 @@ public class KeyboardController implements Initializable {
 
         for(Key key : keys) {
             if (key.keyCode().equals(keyEvent.getCode())) {
-                pressedKeys.remove(keyEvent.getCode());
+                pressedKeys.remove(key);
                 keyInfos.remove(keyEvent.getCode());
                 keyboard.drawWithPressedKeys(width, keyInfos.values().stream().toList(), drawWithKeys);
                 stopKeySound(keyEvent.getCode());
@@ -283,7 +283,7 @@ public class KeyboardController implements Initializable {
 
         for (Key sound : sounds) {
             if(keys.contains(sound)) {
-                pressedKeys.add(sound.keyCode());
+                pressedKeys.add(sound);
             }
         }
         drawAndPlay();
