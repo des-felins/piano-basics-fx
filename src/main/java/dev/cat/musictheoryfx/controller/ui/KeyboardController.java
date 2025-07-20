@@ -2,7 +2,7 @@ package dev.cat.musictheoryfx.controller.ui;
 
 import dev.cat.musictheoryfx.event.HintEvent;
 import dev.cat.musictheoryfx.event.SceneResizeEvent;
-import dev.cat.musictheoryfx.event.ShowHideKeysEvent;
+import dev.cat.musictheoryfx.event.ShowHidePlayedKeysEvent;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -12,8 +12,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.media.AudioClip;
-import org.apache.commons.collections4.BidiMap;
-import org.apache.commons.collections4.bidimap.DualHashBidiMap;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
@@ -32,10 +30,10 @@ public class KeyboardController implements Initializable {
 
     EventHandler<KeyEvent> keyPressListener = this::keyPressed;
     EventHandler<KeyEvent> keyReleaseListener = this::keyReleased;
-    private BidiMap<KeyCode, AudioClip> keyToSound = new DualHashBidiMap<>();
-    private Map<AudioClip, KeyCode> soundToKey = new HashMap<>();
-    private Set<KeyCode> pressedKeys = new HashSet<>();
-    private Map<KeyCode, KeyInfo> keyInfos = new HashMap<>();
+
+    private final List<Key> keys = new ArrayList<>();
+    private final Set<KeyCode> pressedKeys = new HashSet<>();
+    private final Map<KeyCode, KeyInfo> keyInfos = new HashMap<>();
 
     private final ApplicationEventPublisher eventPublisher;
 
@@ -84,8 +82,10 @@ public class KeyboardController implements Initializable {
 
     private void keyPressed(KeyEvent e) {
 
-        if (keyToSound.containsKey(e.getCode())) {
-            pressedKeys.add(e.getCode());
+        for(Key key : keys) {
+            if (key.keyCode().equals(e.getCode())) {
+                pressedKeys.add(key.keyCode());
+            }
         }
 
         drawAndPlay();
@@ -98,6 +98,8 @@ public class KeyboardController implements Initializable {
 
             int keyNumber = 0;
             int octaveBlockNumber = 0;
+
+            //1 for white key, 2 for black key
             int keyType = 1;
 
             playKeySound(key);
@@ -206,28 +208,40 @@ public class KeyboardController implements Initializable {
 
 
     private void playKeySound(KeyCode key) {
-        if (keyToSound.get(key) != null) {
-            AudioClip sound = keyToSound.get(key);
-            if (sound.isPlaying()) {
-                return;
-            } else {
+        for(Key curKey : keys) {
+           if(curKey.keyCode().equals(key)) {
+            AudioClip sound = curKey.audioClip();
+
+            if (!sound.isPlaying()) {
                 sound.play();
             }
+               break;
+           }
         }
     }
 
     private void keyReleased(KeyEvent keyEvent) {
-        if (keyToSound.get(keyEvent.getCode()) != null) {
-            pressedKeys.remove(keyEvent.getCode());
-            keyInfos.remove(keyEvent.getCode());
-            keyboard.drawWithPressedKeys(width, keyInfos.values().stream().toList(), drawWithKeys);
-            stopKeySound(keyEvent.getCode());
+
+        for(Key key : keys) {
+            if (key.keyCode().equals(keyEvent.getCode())) {
+                pressedKeys.remove(keyEvent.getCode());
+                keyInfos.remove(keyEvent.getCode());
+                keyboard.drawWithPressedKeys(width, keyInfos.values().stream().toList(), drawWithKeys);
+                stopKeySound(keyEvent.getCode());
+
+                break;
+            }
         }
     }
 
     private void stopKeySound(KeyCode code) {
-        AudioClip sound = keyToSound.get(code);
-        sound.stop();
+        for(Key key : keys) {
+            if(key.keyCode().equals(code)) {
+                key.audioClip().stop();
+
+                break;
+            }
+        }
     }
 
 
@@ -242,64 +256,7 @@ public class KeyboardController implements Initializable {
     }
 
     public void fillKeySounds() {
-        List<KeyCode> codes = getCodes();
-
-        List<AudioClip> files = getFiles();
-
-        for (int i = 0; i < codes.size(); i++) {
-            KeyCode code = codes.get(i);
-            AudioClip keySound = files.get(i);
-            keyToSound.put(code, keySound);
-        }
-
-        soundToKey.putAll(keyToSound.inverseBidiMap());
-    }
-
-    private List<KeyCode> getCodes() {
-        List<KeyCode> codes = new ArrayList<>();
-        codes.add(KeyCode.Q);
-        codes.add(KeyCode.DIGIT2);
-        codes.add(KeyCode.W);
-        codes.add(KeyCode.DIGIT3);
-        codes.add(KeyCode.E);
-        codes.add(KeyCode.R);
-        codes.add(KeyCode.DIGIT5);
-        codes.add(KeyCode.T);
-        codes.add(KeyCode.DIGIT6);
-        codes.add(KeyCode.Y);
-        codes.add(KeyCode.DIGIT7);
-        codes.add(KeyCode.U);
-        codes.add(KeyCode.I);
-        codes.add(KeyCode.DIGIT9);
-        codes.add(KeyCode.O);
-        codes.add(KeyCode.DIGIT0);
-        codes.add(KeyCode.P);
-        codes.add(KeyCode.SHIFT);
-        codes.add(KeyCode.A);
-        codes.add(KeyCode.Z);
-        codes.add(KeyCode.S);
-        codes.add(KeyCode.X);
-        codes.add(KeyCode.D);
-        codes.add(KeyCode.C);
-        codes.add(KeyCode.V);
-        codes.add(KeyCode.G);
-        codes.add(KeyCode.B);
-        codes.add(KeyCode.H);
-        codes.add(KeyCode.N);
-        codes.add(KeyCode.M);
-        codes.add(KeyCode.K);
-        codes.add(KeyCode.COMMA);
-        codes.add(KeyCode.L);
-        codes.add(KeyCode.PERIOD);
-        codes.add(KeyCode.SEMICOLON);
-        codes.add(KeyCode.SLASH);
-
-        return codes;
-    }
-
-
-    private List<AudioClip> getFiles() {
-        return soundBuilder.getSounds();
+        keys.addAll(soundBuilder.getKeys());
     }
 
 
@@ -310,24 +267,23 @@ public class KeyboardController implements Initializable {
     }
 
     @EventListener
-    public void handleShowNotesEvent(ShowHideKeysEvent event) {
-
+    public void handleShowNotesEvent(ShowHidePlayedKeysEvent event) {
         if (event.mustShowKeys()) {
-            matchKeyToSound(soundBuilder.getCurrentSounds());
+            matchKeyToSound(soundBuilder.getCurrentKeys());
         } else {
             keyboard.draw(width, drawWithKeys);
         }
     }
 
 
-    public void matchKeyToSound(List<AudioClip> sounds) {
+    public void matchKeyToSound(List<Key> sounds) {
 
         pressedKeys.clear();
         keyInfos.clear();
 
-        for (AudioClip sound : sounds) {
-            if (soundToKey.containsKey(sound)) {
-                pressedKeys.add(soundToKey.get(sound));
+        for (Key sound : sounds) {
+            if(keys.contains(sound)) {
+                pressedKeys.add(sound.keyCode());
             }
         }
         drawAndPlay();

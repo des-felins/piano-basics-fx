@@ -65,12 +65,15 @@ public class ScalesController implements Initializable {
             currentNote = rootNotes.get(scaleCount);
             scaleNameProperty.setValue(currentNote.getNote().getLetterName() + " " +
                     currentNote.getScaleType().getDescription());
+            nextButton.setVisible(false);
             scaleCount++;
 
         } else {
             scaleNameProperty.setValue("Done!");
         }
     }
+
+
 
     @FXML
     void shuffleAndRepeat() {
