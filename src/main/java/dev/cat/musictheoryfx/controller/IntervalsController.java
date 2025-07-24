@@ -1,7 +1,8 @@
 package dev.cat.musictheoryfx.controller;
 
+import dev.cat.musictheoryfx.controller.ui.Key;
 import dev.cat.musictheoryfx.controller.ui.SoundBuilder;
-import dev.cat.musictheoryfx.event.ShowHideKeysEvent;
+import dev.cat.musictheoryfx.event.ShowHidePlayedKeysEvent;
 import dev.cat.musictheoryfx.notefactory.Interval;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -49,8 +50,8 @@ public class IntervalsController implements Initializable {
 
     StringProperty responseProperty = new SimpleStringProperty();
 
-    AudioClip firstSound;
-    AudioClip secondSound;
+    Key firstKey;
+    Key secondKey;
 
 
     @Lazy
@@ -61,7 +62,7 @@ public class IntervalsController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        soundBuilder.clearCurrentSounds();
+        soundBuilder.clearCurrentKeys();
         populateComboBox();
     }
 
@@ -88,14 +89,14 @@ public class IntervalsController implements Initializable {
 
     @FXML
     public void showNotes(ActionEvent actionEvent) {
-        eventPublisher.publishEvent(new ShowHideKeysEvent(this, true));
+        eventPublisher.publishEvent(new ShowHidePlayedKeysEvent(this, true));
     }
 
     @FXML
     public void getNextInterval(ActionEvent actionEvent) {
 
-        soundBuilder.clearCurrentSounds();
-        eventPublisher.publishEvent(new ShowHideKeysEvent(this, false));
+        soundBuilder.clearCurrentKeys();
+        eventPublisher.publishEvent(new ShowHidePlayedKeysEvent(this, false));
 
 
         interval = getRandomInterval();
@@ -103,53 +104,53 @@ public class IntervalsController implements Initializable {
         int semiTones = interval.getSemiTones();
         int startingPoint = randomSound.nextInt(24);
 
-        firstSound = soundBuilder.getSound(startingPoint);
-        soundBuilder.addCurrentSound(firstSound);
+        firstKey = soundBuilder.getNewKey(startingPoint);
+        soundBuilder.addCurrentKey(firstKey);
 
-        secondSound = soundBuilder.getSound(startingPoint + semiTones);
-        soundBuilder.addCurrentSound(secondSound);
+        secondKey = soundBuilder.getNewKey(startingPoint + semiTones);
+        soundBuilder.addCurrentKey(secondKey);
 
 
         responseProperty.setValue("");
         nextButton.setDisable(true);
         comboBox.setValue("");
 
-        playSounds(firstSound, secondSound);
+        playSounds(firstKey, secondKey);
 
     }
 
-    private void playSounds(AudioClip firstSound, AudioClip secondSound) {
+    private void playSounds(Key firstKey, Key secondKey) {
 
-        firstSound.play();
-        secondSound.play();
+        firstKey.audioClip().play();
+        secondKey.audioClip().play();
 
         timer.schedule(new TimerTask(){
             @Override
             public void run() {
-                firstSound.stop();
-                secondSound.stop();
+                firstKey.audioClip().stop();
+                secondKey.audioClip().stop();
             }
         }, 3000);
 
         timer.schedule(new TimerTask(){
             @Override
             public void run() {
-                firstSound.play();
+                firstKey.audioClip().play();
             }
         }, 3100);
 
         timer.schedule(new TimerTask(){
             @Override
             public void run() {
-                firstSound.stop();
-                secondSound.play();
+                firstKey.audioClip().stop();
+                secondKey.audioClip().play();
             }
         }, 4100);
 
         timer.schedule(new TimerTask(){
             @Override
             public void run() {
-                secondSound.stop();
+                secondKey.audioClip().stop();
             }
         }, 5100);
 
@@ -161,7 +162,7 @@ public class IntervalsController implements Initializable {
 
     @FXML
     public void playAgain(ActionEvent actionEvent) {
-        playSounds(firstSound, secondSound);
+        playSounds(firstKey, secondKey);
     }
 
     @FXML
