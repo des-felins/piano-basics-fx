@@ -8,29 +8,31 @@ public class Chord {
     private ScaleType scaleType;
     private Note rootNote;
     private ChordType chordType;
+    private final KeySignature keySignature;
     private final List<Note> chordNotes = new ArrayList<>();
 
-    public Chord(ScaleType scaleType, Note rootNote, ChordType chordType) {
+    public Chord(ScaleType scaleType, Note rootNote, KeySignature keySignature, ChordType chordType) {
         this.scaleType = scaleType;
         this.rootNote = rootNote;
         this.chordType = chordType;
-        getChordByScaleType(rootNote, scaleType, chordType);
+        this.keySignature = keySignature;
+        getChordByScaleType(rootNote, keySignature, scaleType, chordType);
     }
 
-    public Chord(Note rootNote, ChordType chordType) {
+    public Chord(Note rootNote, KeySignature keySignature, ChordType chordType) {
         this.rootNote = rootNote;
         this.chordType = chordType;
+        this.keySignature = keySignature;
         scaleType = null;
-        getChordForNote(rootNote, chordType);
+        getChordForNote(rootNote, keySignature, chordType);
     }
 
 
-
-    public void getChordForNote(Note note, ChordType chordType) {
+    public void getChordForNote(Note note, KeySignature keySignature, ChordType chordType) {
 
     }
 
-    public void getChordByScaleType(Note note, ScaleType scaleType, ChordType chordType) {
+    public void getChordByScaleType(Note note, KeySignature keySignature, ScaleType scaleType, ChordType chordType) {
 
     }
 
@@ -48,5 +50,9 @@ public class Chord {
 
     public List<Note> getChordNotes() {
         return chordNotes;
+    }
+
+    public KeySignature getKeySignature() {
+        return keySignature;
     }
 }

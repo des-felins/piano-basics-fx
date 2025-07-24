@@ -6,7 +6,6 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.text.Font?>
 <SplitPane fx:id="scalesPane" dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.cat.musictheoryfx.controller.ScalesController">
     <items>
@@ -21,7 +20,7 @@
                                 <Button fx:id="repeatButton" mnemonicParsing="false" onAction="#shuffleAndRepeat" text="Start again" wrapText="true" />
                             </buttons>
                         </ButtonBar>
-                        <Label layoutX="22.0" layoutY="14.0" text="Click 'Next' to get a random scale from the Circle of Fifths. Play three variations of a scale on the keyboard: natural, melodic, and harmonic. Start with natural. The octave doesn't matter, but when you chose one for natural scale, you must stick to it for other scale types. If played correctly, the answer will be accepted and the next scale type activated. The 'Next' button will be activated only when all three scale types are played with no mistakes. You can click 'Start again' to start the exercise from ground zero." AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                        <Label layoutX="22.0" layoutY="14.0" text="Click 'Next' to get a random scale from the Circle of Fifths. Play three variations of a scale on the keyboard (ascending and descending): natural, melodic, and harmonic. Start with natural. The octave doesn't matter, but when you choose the root note for natural, you must stick to it for other scale types. If played correctly, the answer will be accepted and the next scale type activated. The 'Next' button will be activated only when all three scale types are played. You can click 'Start again' to start the exercise from ground zero." AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                         <Label fx:id="dataLabel" alignment="CENTER" layoutX="243.0" layoutY="55.0" prefHeight="59.0" prefWidth="536.0" text="Label" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="55.0">
                             <font>
                                 <Font size="26.0" />
