@@ -2,6 +2,7 @@ package dev.cat.musictheoryfx.controller;
 
 import dev.cat.musictheoryfx.controller.ui.Key;
 import dev.cat.musictheoryfx.controller.ui.SoundBuilder;
+import dev.cat.musictheoryfx.notefactory.Interval;
 import dev.cat.musictheoryfx.notefactory.RootScaleNote;
 import dev.cat.musictheoryfx.notefactory.Scale;
 import dev.cat.musictheoryfx.notefactory.ScaleBuilder;
@@ -42,7 +43,7 @@ public class ScalesController implements Initializable {
     private List<RootScaleNote> rootNotes = new ArrayList<>();
 
     private RootScaleNote currentNote;
-    private Scale currentScale;
+    private List<Scale> currentScale;
 
     private List<List<Key>> keysForScales = new ArrayList<>();
 
@@ -71,7 +72,7 @@ public class ScalesController implements Initializable {
         if (scaleCount < rootNotes.size()) {
 
             currentNote = rootNotes.get(scaleCount);
-            currentScale = scales.get(currentNote).getFirst();
+            currentScale = scales.get(currentNote);
 
             scaleNameProperty.setValue(currentNote.getNote().getLetterName() + " " +
                     currentNote.getScaleType().getDescription());
@@ -82,7 +83,6 @@ public class ScalesController implements Initializable {
             scaleNameProperty.setValue("Done!");
         }
     }
-
 
 
     @FXML
@@ -112,14 +112,19 @@ public class ScalesController implements Initializable {
 
     @EventListener
     public void handleKeyActionEvent(Key key) {
-        if(key.pitch().equals(currentNote.getNote().getPitch())) {
-            if (buildScalesWithKeys()) {
-               //add a counter to fields for steps
-                // i++
-            }
-            // else throw error
-            // "can't build complete scale from this note, choose the root note in previous octave"
+        if (!keysForScales.isEmpty()) {
+            verifyNextNote(key);
         }
+        else if (key.pitch().equals(currentNote.getNote().getPitch()) &&
+                canBuildScalesWithKeys(key)) {
+            //add a counter to fields for steps
+            // i++
+        }
+        // else throw error
+        // "can't build complete scale from this note, choose the root note in previous octave"
+
+
+
 
         // do while i < scalelist.size
 
@@ -128,20 +133,23 @@ public class ScalesController implements Initializable {
         // else "wrong" and don't increment i
 
 
-        // after ending loop - make data label fir this scale green and unblock the next scale
+        // after ending loop - make data label for this scale type green and unblock the next scale type
+        // if all scales done - clear lists and counters and unblock next scale
 
     }
 
-    private boolean buildScalesWithKeys() {
+    private void verifyNextNote(Key key) {
+        // check
+    }
+
+    private boolean canBuildScalesWithKeys(Key key) {
         //measure in intervals
-
-        //if can't build whole scale - break and return false
-
-
-
-
+        if (soundBuilder.getKeys().indexOf(key)
+                + Interval.P8.getSemiTones()
+                >= soundBuilder.getKeys().size()) {
+            return false;
+        }
         return true;
     }
-
 
 }
