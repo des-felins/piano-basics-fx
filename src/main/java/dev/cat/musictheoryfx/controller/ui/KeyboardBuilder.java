@@ -8,7 +8,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import org.springframework.stereotype.Component;
 
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,8 +40,8 @@ public class KeyboardBuilder {
 
         resizeKeys(width, height);
 
-        Map<Character, Point2D> centers = new LinkedHashMap<>();
-        Map<Character, Rectangle2D> rectangles = new LinkedHashMap<>();
+        Map<Character, Point2D> centers = new HashMap<>();
+        Map<Character, Rectangle2D> rectangles = new HashMap<>();
 
         int totalWhiteKeys = OCTAVES * 7;
 
@@ -109,8 +109,8 @@ public class KeyboardBuilder {
 
         resizeKeys(width, height);
 
-        Map<Character, Point2D> centers = new LinkedHashMap<>();
-        Map<Character, Rectangle2D> rectangles = new LinkedHashMap<>();
+        Map<Character, Point2D> centers = new HashMap<>();
+        Map<Character, Rectangle2D> rectangles = new HashMap<>();
 
 
         int totalWhiteKeys = OCTAVES * 7;
