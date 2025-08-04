@@ -85,6 +85,7 @@ public class KeyboardController implements Initializable {
         for(Key key : keys) {
             if (key.keyCode().equals(e.getCode())) {
                 pressedKeys.add(key);
+                break;
             }
         }
 
