@@ -13,22 +13,10 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>music-theory-fx</name>
     <description>music-theory-fx</description>
-    <url/>
-    <licenses>
-        <license/>
-    </licenses>
-    <developers>
-        <developer/>
-    </developers>
-    <scm>
-        <connection/>
-        <developerConnection/>
-        <tag/>
-        <url/>
-    </scm>
     <properties>
         <java.version>21</java.version>
     </properties>
+
     <dependencies>
 
         <dependency>
@@ -68,12 +56,6 @@
             <groupId>org.testfx</groupId>
             <artifactId>testfx-core</artifactId>
             <version>4.0.18</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>5.13.4</version>
             <scope>test</scope>
         </dependency>
         <dependency>

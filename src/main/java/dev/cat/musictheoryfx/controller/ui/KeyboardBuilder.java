@@ -8,7 +8,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,22 +40,22 @@ public class KeyboardBuilder {
 
         resizeKeys(width, height);
 
-        Map<Character, Point2D> centers = new HashMap<>();
-        Map<Character, Rectangle2D> rectangles = new HashMap<>();
+        Map<Character, Point2D> centers = new LinkedHashMap<>();
+        Map<Character, Rectangle2D> rectangles = new LinkedHashMap<>();
 
         int totalWhiteKeys = OCTAVES * 7;
 
         // Draw white keys
         for (int i = 0; i < totalWhiteKeys; i++) {
             int x = i * WHITE_KEY_WIDTH;
-                gc.setFill(Color.WHITE);
+            gc.setFill(Color.WHITE);
 
 
             gc.fillRect(x, 0, WHITE_KEY_WIDTH, WHITE_KEY_HEIGHT);
             gc.setStroke(Color.BLACK);
             gc.strokeRect(x, 0, WHITE_KEY_WIDTH, WHITE_KEY_HEIGHT);
 
-            if(drawWithKeys) {
+            if (drawWithKeys) {
                 gc.setFont(new Font("Verdana", 12));
                 gc.strokeText(String.valueOf(keyToWhiteKey.get(i)), x + 10.0, WHITE_KEY_HEIGHT - 10.0);
             }
@@ -77,10 +77,10 @@ public class KeyboardBuilder {
             for (int semitone : blackKeyOffsets) {
                 int indexInWhiteKeys = getWhiteKeyIndex(semitone);
                 int x = (octave * 7 + indexInWhiteKeys + 1) * WHITE_KEY_WIDTH - (BLACK_KEY_WIDTH / 2);
-                    gc.setFill(Color.BLACK);
+                gc.setFill(Color.BLACK);
                 gc.fillRect(x, 0, BLACK_KEY_WIDTH, BLACK_KEY_HEIGHT);
 
-                if(drawWithKeys) {
+                if (drawWithKeys) {
                     gc.setStroke(Color.WHITE);
                     gc.setFont(new Font("Verdana", 12));
                     gc.strokeText(String.valueOf(keyToBlackKey.get(blackKeyIndex)), x + 10.0, BLACK_KEY_HEIGHT - 10.0);
@@ -98,7 +98,7 @@ public class KeyboardBuilder {
 
         Canvas canvas = gc.getCanvas();
         canvas.getProperties().put(KEY_CENTERS_PROPERTY, centers);
-        canvas.getProperties().put(KEY_BOUNDS_PROPERTY,  rectangles);
+        canvas.getProperties().put(KEY_BOUNDS_PROPERTY, rectangles);
     }
 
     public void drawPianoWithPressedKeys(GraphicsContext gc,
@@ -109,8 +109,8 @@ public class KeyboardBuilder {
 
         resizeKeys(width, height);
 
-        Map<Character, Point2D> centers = new HashMap<>();
-        Map<Character, Rectangle2D> rectangles = new HashMap<>();
+        Map<Character, Point2D> centers = new LinkedHashMap<>();
+        Map<Character, Rectangle2D> rectangles = new LinkedHashMap<>();
 
 
         int totalWhiteKeys = OCTAVES * 7;
@@ -127,14 +127,14 @@ public class KeyboardBuilder {
                 }
             }
 
-                gc.fillRect(x, 0, WHITE_KEY_WIDTH, WHITE_KEY_HEIGHT);
-                gc.setStroke(Color.BLACK);
-                gc.strokeRect(x, 0, WHITE_KEY_WIDTH, WHITE_KEY_HEIGHT);
+            gc.fillRect(x, 0, WHITE_KEY_WIDTH, WHITE_KEY_HEIGHT);
+            gc.setStroke(Color.BLACK);
+            gc.strokeRect(x, 0, WHITE_KEY_WIDTH, WHITE_KEY_HEIGHT);
 
-                if (drawWithKeys) {
-                    gc.setFont(new Font("Verdana", 12));
-                    gc.strokeText(String.valueOf(keyToWhiteKey.get(i)), x + 10.0, WHITE_KEY_HEIGHT - 10.0);
-                }
+            if (drawWithKeys) {
+                gc.setFont(new Font("Verdana", 12));
+                gc.strokeText(String.valueOf(keyToWhiteKey.get(i)), x + 10.0, WHITE_KEY_HEIGHT - 10.0);
+            }
 
             char label = keyToWhiteKey.get(i);
             double cx = x + WHITE_KEY_WIDTH / 2.0;
@@ -143,46 +143,46 @@ public class KeyboardBuilder {
             rectangles.put(label, new Rectangle2D(x, 0, WHITE_KEY_WIDTH, WHITE_KEY_HEIGHT));
 
         }
-            int blackKeyIndex = 0;
+        int blackKeyIndex = 0;
 
-            // Draw black keys (overlapping white ones)
-            for (int octave = 0; octave < OCTAVES; octave++) {
+        // Draw black keys (overlapping white ones)
+        for (int octave = 0; octave < OCTAVES; octave++) {
 
-                for (int semitone : blackKeyOffsets) {
-                    int indexInWhiteKeys = getWhiteKeyIndex(semitone);
-                    int x = (octave * 7 + indexInWhiteKeys + 1) * WHITE_KEY_WIDTH - (BLACK_KEY_WIDTH / 2);
+            for (int semitone : blackKeyOffsets) {
+                int indexInWhiteKeys = getWhiteKeyIndex(semitone);
+                int x = (octave * 7 + indexInWhiteKeys + 1) * WHITE_KEY_WIDTH - (BLACK_KEY_WIDTH / 2);
 
-                    gc.setFill(Color.BLACK);
+                gc.setFill(Color.BLACK);
 
-                    for(KeyInfo info : keyInfos) {
+                for (KeyInfo info : keyInfos) {
 
-                        if (info.keyType() == 2 && info.keyNumber() == indexInWhiteKeys && info.octaveBlockNumber() - 1 == octave) {
-                            gc.setFill(Color.LAVENDER);
-                        }
+                    if (info.keyType() == 2 && info.keyNumber() == indexInWhiteKeys && info.octaveBlockNumber() - 1 == octave) {
+                        gc.setFill(Color.LAVENDER);
                     }
-                    gc.fillRect(x, 0, BLACK_KEY_WIDTH, BLACK_KEY_HEIGHT);
-
-                    if (drawWithKeys) {
-                        gc.setStroke(Color.WHITE);
-                        gc.setFont(new Font("Verdana", 12));
-                        gc.strokeText(String.valueOf(keyToBlackKey.get(blackKeyIndex)), x + 10.0, BLACK_KEY_HEIGHT - 10.0);
-                    }
-
-                    char label = keyToBlackKey.get(blackKeyIndex);
-                    double cx = x + BLACK_KEY_WIDTH / 2.0;
-                    double cy = BLACK_KEY_HEIGHT / 2.0;
-                    centers.put(label, new Point2D(cx, cy));
-                    rectangles.put(label, new Rectangle2D(x, 0, BLACK_KEY_WIDTH, BLACK_KEY_HEIGHT));
-
-                    blackKeyIndex++;
                 }
+                gc.fillRect(x, 0, BLACK_KEY_WIDTH, BLACK_KEY_HEIGHT);
+
+                if (drawWithKeys) {
+                    gc.setStroke(Color.WHITE);
+                    gc.setFont(new Font("Verdana", 12));
+                    gc.strokeText(String.valueOf(keyToBlackKey.get(blackKeyIndex)), x + 10.0, BLACK_KEY_HEIGHT - 10.0);
+                }
+
+                char label = keyToBlackKey.get(blackKeyIndex);
+                double cx = x + BLACK_KEY_WIDTH / 2.0;
+                double cy = BLACK_KEY_HEIGHT / 2.0;
+                centers.put(label, new Point2D(cx, cy));
+                rectangles.put(label, new Rectangle2D(x, 0, BLACK_KEY_WIDTH, BLACK_KEY_HEIGHT));
+
+                blackKeyIndex++;
             }
+        }
 
         Canvas canvas = gc.getCanvas();
         canvas.getProperties().put(KEY_CENTERS_PROPERTY, centers);
-        canvas.getProperties().put(KEY_BOUNDS_PROPERTY,  rectangles);
+        canvas.getProperties().put(KEY_BOUNDS_PROPERTY, rectangles);
 
-        }
+    }
 
 
     // Helper: map black key semitone to position in white keys

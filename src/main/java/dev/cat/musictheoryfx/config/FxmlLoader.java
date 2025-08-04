@@ -20,6 +20,7 @@ public class FxmlLoader {
         FXMLLoader loader = new FXMLLoader();
         loader.setControllerFactory(context::getBean);
         loader.setLocation(getClass().getResource(fxmlPath));
+        loader.setClassLoader(context.getClassLoader());
         return loader.load();
     }
 }
