@@ -47,6 +47,7 @@ class PianoKeyboardColorTest {
 
         stage.setScene(new Scene(rootNode, 800, 600));
         stage.show();
+        WaitForAsyncUtils.waitForFxEvents();
     }
 
     @BeforeEach

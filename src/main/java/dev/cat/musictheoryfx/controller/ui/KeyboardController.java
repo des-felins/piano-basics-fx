@@ -82,12 +82,12 @@ public class KeyboardController implements Initializable {
 
     private void keyPressed(KeyEvent e) {
 
-        for(Key key : keys) {
-            if (key.keyCode().equals(e.getCode())) {
-                pressedKeys.add(key);
-                break;
-            }
-        }
+        pressedKeys.add(
+                keys.stream()
+                .filter(k -> k.keyCode().equals(e.getCode()))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("No key for" + e.getCode()))
+        );
 
         drawAndPlay();
 
