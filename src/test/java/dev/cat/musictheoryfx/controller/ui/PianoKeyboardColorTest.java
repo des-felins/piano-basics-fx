@@ -75,11 +75,12 @@ class PianoKeyboardColorTest {
 
         robot.press(KeyCode.Q);
 
-        WaitForAsyncUtils.waitFor(2, TimeUnit.SECONDS,
-                () -> samplePixel(canvas, point) != before);
+        WaitForAsyncUtils.waitFor(1500, TimeUnit.MILLISECONDS,
+                () -> !colorsClose(WaitForAsyncUtils.asyncFx(() -> samplePixel(canvas, point)).get(), before));
 
         Color duringPress = samplePixel(canvas, point);
         assertThat(before.equals(duringPress)).isFalse();
+
     }
 
     @Test
@@ -170,6 +171,13 @@ class PianoKeyboardColorTest {
             y = Math.max(0, Math.min(y, (int) canvas.getHeight() - 1));
             return pr.getColor(x, y);
         }).get();
+    }
+
+    private static boolean colorsClose(Color a, Color b) {
+        double eps = 0.02; // tolerate small AA differences (~2%)
+        return Math.abs(a.getRed() - b.getRed())   < eps &&
+                Math.abs(a.getGreen() - b.getGreen()) < eps &&
+                Math.abs(a.getBlue() - b.getBlue())  < eps;
     }
 
 }
