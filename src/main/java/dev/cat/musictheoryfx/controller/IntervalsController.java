@@ -73,7 +73,7 @@ public class IntervalsController implements Initializable {
                 "Minor Third (m3)",
                 "Major Third (M3)",
                 "Perfect Fourth (P4)",
-                "Triton (aug4/dim5)",
+                "Tritone (aug4/dim5)",
                 "Perfect Fifth (P5)",
                 "Minor Sixth (m6)",
                 "Major Sixth (M6)",
